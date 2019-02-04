@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+        name: test
+        url: jdbc:mysql://192.168.100.11:3306/xnol
+        username: root
+        password: _123456Feng
+        driver-class-name: com.mysql.jdbc.Driver
+
+#pagehelper
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    returnPageInfo: check
+
+
+## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath:mapping/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.lanbing.spring.xnolscan.resource.model  # 注意：对应实体类的路径
+
+
