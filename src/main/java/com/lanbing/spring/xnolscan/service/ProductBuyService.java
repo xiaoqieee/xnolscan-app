@@ -48,7 +48,7 @@ public class ProductBuyService extends BaseService {
         String tokenName = TokenUtils.getTokenName(detailPage);
         String tokenValue = TokenUtils.getTokenValue(detailPage);
         String result = XnolHttpRequestHelper.submitBuy(productId, amount, tokenName, tokenValue);
-        logger.info("[购买接口]-购买结果.productId:{},result:{}", productId, result);
+        logger.info("[购买接口]-获取到购买结果.productId:{},result:{}", productId, result);
         return result;
     }
 
