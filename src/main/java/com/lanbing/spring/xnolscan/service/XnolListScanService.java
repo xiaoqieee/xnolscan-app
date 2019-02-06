@@ -2,6 +2,7 @@ package com.lanbing.spring.xnolscan.service;
 
 
 import com.lanbing.spring.xnolscan.helper.StatusHelper;
+import com.lanbing.spring.xnolscan.util.DateUtils;
 import org.springframework.stereotype.Service;
 
 
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Service;
 public class XnolListScanService extends XnolProductScanHelper {
 
     public void scanListAsync() {
-        new Thread(() -> {
-            scanList();
-        },"Thread-list-scan").start();
+        for (int i = 0; i < 4; i++) {
+            new Thread(() -> {
+                scanList();
+            }, "Thread-list-scan").start();
+            DateUtils.sleep(250);
+        }
     }
 
     public void scanList() {

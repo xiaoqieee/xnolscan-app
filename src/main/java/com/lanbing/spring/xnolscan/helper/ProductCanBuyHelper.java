@@ -17,23 +17,23 @@ public class ProductCanBuyHelper {
             }
         }
 
-        if (t.getProductTerm() < 60 && t.getTargetRatio() > 0.20) {
+        if (t.getProductTerm() < 60 && t.getTargetRatio() > 0.25) {
             return true;
         }
 
-        if (t.getProductTerm() < 90 && t.getTargetRatio() > 0.25) {
+        if (t.getProductTerm() < 90 && t.getTargetRatio() > 0.27) {
             return true;
         }
 
-        if (t.getProductTerm() < 120 && t.getTargetRatio() > 0.30) {
+        if (t.getProductTerm() < 120 && t.getTargetRatio() > 0.33) {
             return true;
         }
 
-        if (t.getProductTerm() < 180 && t.getTargetRatio() > 0.35) {
+        if (t.getProductTerm() < 180 && t.getTargetRatio() > 0.38) {
             return true;
         }
 
-        if (t.getProductTerm() < 240 && t.getTargetRatio() > 0.40) {
+        if (t.getProductTerm() < 240 && t.getTargetRatio() > 0.42) {
             return true;
         }
         return false;
