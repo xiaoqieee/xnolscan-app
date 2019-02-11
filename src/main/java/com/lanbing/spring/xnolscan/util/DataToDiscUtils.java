@@ -1,9 +1,11 @@
 package com.lanbing.spring.xnolscan.util;
 
 import com.lanbing.spring.xnolscan.model.Product;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 public class DataToDiscUtils {
 
@@ -48,5 +50,22 @@ public class DataToDiscUtils {
         out.write("\r\n".getBytes());
         out.flush();
         out.close();
+    }
+
+    public static String getCookie() {
+        try {
+            return getFirstLine("D:/data/cookie.txt");
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+    private static String getFirstLine(String filePath) throws Exception {
+        List<String> dataArr = FileUtils.readLines(new File(filePath), "UTF-8");
+        if (dataArr != null && dataArr.size() > 0) {
+            return dataArr.get(0);
+        }
+        return null;
     }
 }

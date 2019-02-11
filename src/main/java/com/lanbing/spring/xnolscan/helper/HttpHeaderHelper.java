@@ -1,5 +1,6 @@
 package com.lanbing.spring.xnolscan.helper;
 
+import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.message.BasicHeader;
@@ -10,7 +11,11 @@ import java.util.Map;
 public class HttpHeaderHelper {
 
 
-    static String cookie = "_ga=GA1.2.1600595210.1541356001; sr=331271.43.11.3.14.103.146.135.0.33.20.15.07; _gid=GA1.2.889903337.1549791152; JSESSIONID=3F83AE3BF6E67D87E262B8651F0C4C80.t-9003; Hm_lvt_7226b8c48cd07619c7a9ebd471d9d589=1548983224,1548987293,1549000872,1549791152; _gat=1; lcksid=5c60dc83dc6e01007c060a82; SESSIONID=7853526f-fe8b-4079-8a90-3388213ba1aa; referer=\"https://www.xiaoniu88.com/user/_2019-02-11\"; Hm_lpvt_7226b8c48cd07619c7a9ebd471d9d589=1549851880";
+    public static String cookie = "";
+
+    public static void reSetCookie() {
+        cookie = DataToDiscUtils.getCookie();
+    }
 
     /**
      * 组装请求头

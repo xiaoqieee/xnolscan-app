@@ -1,5 +1,6 @@
 package com.lanbing.spring.xnolscan.controller;
 
+import com.lanbing.spring.xnolscan.helper.HttpHeaderHelper;
 import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.helper.StatusHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
@@ -33,6 +34,9 @@ public class StartController {
         if (StatusHelper.canStart()) {
             // 设置当前初始ID
             ProductMaxIdHelper.init(baseProductId);
+
+            // 刷新cookie
+            HttpHeaderHelper.reSetCookie();
 
             // 列表搜索
             xnolListScanService.scanListAsync();
@@ -84,6 +88,17 @@ public class StartController {
         try {
             ProductIdBO.forceStop = forceStop;
             return "购买成功";
+        } catch (Exception e) {
+            return "处理异常";
+        }
+    }
+
+    @RequestMapping(path = {"/reSetCookie"})
+    public String reSetCookie() {
+        try {
+            // 刷新cookie
+            HttpHeaderHelper.reSetCookie();
+            return "处理成功";
         } catch (Exception e) {
             return "处理异常";
         }
