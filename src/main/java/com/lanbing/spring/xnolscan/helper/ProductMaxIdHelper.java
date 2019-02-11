@@ -46,7 +46,7 @@ public class ProductMaxIdHelper {
                     } else {
                         productId += step;
                     }
-                    if (failTimes > 3) {
+                    if (failTimes > 2) {
                         break;
                     }
                 } catch (Exception e) {
