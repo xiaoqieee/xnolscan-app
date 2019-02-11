@@ -9,7 +9,6 @@ import com.lanbing.spring.xnolscan.service.XnolDetailScanService;
 import com.lanbing.spring.xnolscan.service.XnolListScanService;
 import com.lanbing.spring.xnolscan.thread.DetailScanTask;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

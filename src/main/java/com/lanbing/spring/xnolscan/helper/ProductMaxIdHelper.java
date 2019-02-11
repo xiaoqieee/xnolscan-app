@@ -11,7 +11,8 @@ public class ProductMaxIdHelper {
 
     public static AtomicInteger currentMaxProductId = null;
 
-    public static void init(int maxProductId) {
+    public static void init(int baseProductId) {
+        int maxProductId = intelligenceGetMaxId(baseProductId);
         currentMaxProductId = new AtomicInteger(maxProductId);
     }
 
@@ -29,7 +30,38 @@ public class ProductMaxIdHelper {
         return false;
     }
 
-    public static Integer intelligenceGetMaxId() throws Exception {
+    public static int intelligenceGetMaxId(int baseId) {
+        int start = baseId;
+        int step = 100000;
+        int failTimes = 1;
+        int productId = start;
+
+        while (true) {
+            while (true) {
+                try {
+                    Product p = XnolHttpRequestHelper.getProductById2(productId, false);
+                    if (p == null) {
+                        failTimes++;
+                    } else {
+                        productId += step;
+                    }
+                    if (failTimes > 3) {
+                        break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            productId -= step;
+            step = step / 10;
+            failTimes = 1;
+            if (step <= 10) {
+                return productId;
+            }
+        }
+    }
+
+    public static Integer intelligenceGetMaxId2() throws Exception {
         int initId = 42629563;
         int interval = 10000;
         int step = 1;
