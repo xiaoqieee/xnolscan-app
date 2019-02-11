@@ -40,6 +40,7 @@ public class ProductMaxIdHelper {
             while (true) {
                 try {
                     Product p = XnolHttpRequestHelper.getProductById2(productId, false);
+                    System.out.println(">>>>>:" + p);
                     if (p == null) {
                         failTimes++;
                     } else {
