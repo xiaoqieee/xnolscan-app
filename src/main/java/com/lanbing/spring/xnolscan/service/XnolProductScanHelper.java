@@ -33,7 +33,7 @@ public class XnolProductScanHelper extends BaseService {
             return false;
         }
 //        DataToDiscUtils.saveToProduct(p);
-        productBuyService.checkBuy(DataToDiscUtils.TYPE_LIST, p);
+        productBuyService.checkBuy(DataToDiscUtils.TYPE_DETAIL, p);
         return true;
     }
 
