@@ -33,14 +33,16 @@ public class ProductMaxIdHelper {
     public static int intelligenceGetMaxId(int baseId) {
         int start = baseId;
         int step = 100000;
-        int failTimes = 1;
+
         int productId = start;
 
-        while (true) {
+        while (step > 1) {
+            int failTimes = 1;
+            productId += step;
             while (true) {
                 try {
                     Product p = XnolHttpRequestHelper.getProductById2(productId, false);
-                    System.out.println(">>>>>:" + p);
+                    System.out.println(productId + ":>>>>>:" + p);
                     if (p == null) {
                         failTimes++;
                     } else {
@@ -55,11 +57,8 @@ public class ProductMaxIdHelper {
             }
             productId -= step;
             step = step / 10;
-            failTimes = 1;
-            if (step <= 10) {
-                return productId;
-            }
         }
+        return productId;
     }
 
     public static Integer intelligenceGetMaxId2() throws Exception {
