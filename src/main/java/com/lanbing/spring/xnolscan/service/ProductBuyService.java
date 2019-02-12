@@ -34,7 +34,7 @@ public class ProductBuyService extends BaseService {
         poolExecutor.submit(() -> {
             try {
                 String detailPage = XnolHttpRequestHelper.detailPage(productId);
-                logger.info("[购买接口]-获取Token.productId:{}, detailPage:{}", productId, detailPage);
+//                logger.info("[购买接口]-获取Token.productId:{}, detailPage:{}", productId, detailPage);
                 String buyResultPage = doBuy(productId, amount, detailPage);
 
                 doBuyResult(productId, buyResultPage);
