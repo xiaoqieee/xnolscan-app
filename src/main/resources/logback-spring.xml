@@ -180,6 +180,37 @@
             <!--<charset>GBK</charset>-->
         </encoder>
     </appender>
+
+    <appender name="KAFKA" class="com.lanbing.spring.xnolscan.log.KafkaAppender">
+        <topic>${kafka.log.topic}</topic>
+        <brokers>${kafka.brokers}</brokers>
+        <timeout>${kafka.log.write.timeout}</timeout>
+        <syncSend>${kafka.syncSend}</syncSend>
+        <!--<zkHost>192.168.201.6:2181</zkHost>-->
+        <!--<kafkaProducerProperties>-->
+        <!--bootstrap.servers=192.168.201.6:9092,192.168.201.7:9092,192.168.201.8:9092-->
+        <!--value.serializer=org.apache.kafka.common.serialization.StringSerializer-->
+        <!--key.serializer=org.apache.kafka.common.serialization.StringSerializer-->
+        <!--</kafkaProducerProperties>-->
+        <logToSystemOut>true</logToSystemOut>
+        <!-- specify a custom formatter -->
+        <formatter class="com.xuele.log.send.kafka.formatter.JsonFormatter">
+            <!--<formatter class="com.xuele.log.send.kafka.formatter.MessageFormatter">-->
+            <!--
+            Whether we expect the log message to be JSON encoded or not.
+            If set to "false", the log message will be treated as a string,
+            and wrapped in quotes. Otherwise it will be treated as a parseable
+            JSON object.
+            -->
+            <expectJsonMessage>true</expectJsonMessage>
+            <!-- Optional -->
+            <includeMethodAndLineNumber>true</includeMethodAndLineNumber>
+            <!-- Mark every message with these additional properties.-->
+            <extraProperties>
+            </extraProperties>
+        </formatter>
+    </appender>
+
     <!--
         <logger>用来设置某一个包或者具体的某一个类的日志打印级别、以及指定<appender>。<logger>仅有一个name属性，一个可选的level和一个可选的addtivity属性。
     -->
@@ -218,6 +249,8 @@
             <appender-ref ref="FILEINFO"/>
             <!--<appender-ref ref="DBAPPENDER"/>-->
             <appender-ref ref="CONSOLE"/>
+
+            <appender-ref ref="KAFKA"/>
         </root>
     </springProfile>
 

@@ -9,6 +9,9 @@ import com.lanbing.spring.xnolscan.service.ProductBuyService;
 import com.lanbing.spring.xnolscan.service.XnolDetailScanService;
 import com.lanbing.spring.xnolscan.service.XnolListScanService;
 import com.lanbing.spring.xnolscan.thread.DetailScanTask;
+import com.lanbing.spring.xnolscan.util.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,8 @@ public class StartController {
 
     @Autowired
     private ProductBuyService productBuyService;
+
+    private final Logger logger = LoggerFactory.getLogger(StartController.class);
 
 
     @RequestMapping(path = {"/start/{baseProductId}"})
@@ -101,6 +106,15 @@ public class StartController {
             return "处理成功";
         } catch (Exception e) {
             return "处理异常";
+        }
+    }
+
+    @RequestMapping(path = {"/testLog"})
+    public String testLog() {
+        int i = 1;
+        while (true) {
+            DateUtils.sleep(1000);
+            logger.info("测试日志》》》" + i++);
         }
     }
 }
