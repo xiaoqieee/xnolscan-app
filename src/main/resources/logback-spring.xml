@@ -182,10 +182,10 @@
     </appender>
 
     <appender name="KAFKA" class="com.lanbing.spring.xnolscan.log.KafkaAppender">
-        <topic>${kafka.log.topic}</topic>
-        <brokers>${kafka.brokers}</brokers>
-        <timeout>${kafka.log.write.timeout}</timeout>
-        <syncSend>${kafka.syncSend}</syncSend>
+        <topic>kafka-log-test</topic>
+        <brokers>kafka1.howcore.com.cn:9092</brokers>
+        <timeout>10000</timeout>
+        <syncSend>true</syncSend>
         <!--<zkHost>192.168.201.6:2181</zkHost>-->
         <!--<kafkaProducerProperties>-->
         <!--bootstrap.servers=192.168.201.6:9092,192.168.201.7:9092,192.168.201.8:9092-->
@@ -194,8 +194,8 @@
         <!--</kafkaProducerProperties>-->
         <logToSystemOut>true</logToSystemOut>
         <!-- specify a custom formatter -->
-        <formatter class="com.xuele.log.send.kafka.formatter.JsonFormatter">
-            <!--<formatter class="com.xuele.log.send.kafka.formatter.MessageFormatter">-->
+        <formatter class="com.lanbing.spring.xnolscan.log.formatter.JsonFormatter">
+            <!--<formatter class="com.lanbing.spring.xnolscan.log.formatter.MessageFormatter">-->
             <!--
             Whether we expect the log message to be JSON encoded or not.
             If set to "false", the log message will be treated as a string,

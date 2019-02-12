@@ -24,7 +24,7 @@ public class KafkaAppender extends AppenderBase<ILoggingEvent> {
     private KafkaProducer producer;
     private String timeout;
 
-    private boolean syncSend = true;
+    private boolean syncSend = false;
 
     @Override
     public void start() {
@@ -32,11 +32,11 @@ public class KafkaAppender extends AppenderBase<ILoggingEvent> {
         log.info("Starting KafkaAppender...");
         Properties props = new Properties();
         try {
-            props.put("bootstrap.servers", brokers);
-            props.put("timeout.ms", timeout);
-            props.put("request.timeout.ms", timeout);
-            props.put("metadata.fetch.timeout.ms", timeout);
-            props.put("network.request.timeout.ms", timeout);
+            props.put("bootstrap.servers", "kafka1.howcore.com.cn:9092,kafka2.howcore.com.cn:9092,kafka3.howcore.com.cn:9092");
+            props.put("timeout.ms", "3000");
+            props.put("request.timeout.ms", "3000");
+            props.put("metadata.fetch.timeout.ms", "3000");
+            props.put("network.request.timeout.ms", "3000");
 
             props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
             props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
@@ -90,32 +90,13 @@ public class KafkaAppender extends AppenderBase<ILoggingEvent> {
         this.formatter = formatter;
     }
 
-    public String getTopic() {
-        return topic;
+    public boolean isLogToSystemOut() {
+        return logToSystemOut;
     }
 
-    public boolean isSyncSend() {
-        return syncSend;
+    public void setLogToSystemOut(boolean logToSystemOut) {
+        this.logToSystemOut = logToSystemOut;
     }
-
-    public void setSyncSend(boolean syncSend) {
-        this.syncSend = syncSend;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
-    public String getLogToSystemOut() {
-        return logToSystemOut + "";
-    }
-
-    public void setLogToSystemOut(String logToSystemOutString) {
-        if ("true".equalsIgnoreCase(logToSystemOutString)) {
-            this.logToSystemOut = true;
-        }
-    }
-
 
     public String getKafkaProducerProperties() {
         return kafkaProducerProperties;
@@ -123,6 +104,14 @@ public class KafkaAppender extends AppenderBase<ILoggingEvent> {
 
     public void setKafkaProducerProperties(String kafkaProducerProperties) {
         this.kafkaProducerProperties = kafkaProducerProperties;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getBrokers() {
@@ -133,11 +122,27 @@ public class KafkaAppender extends AppenderBase<ILoggingEvent> {
         this.brokers = brokers;
     }
 
+    public KafkaProducer getProducer() {
+        return producer;
+    }
+
+    public void setProducer(KafkaProducer producer) {
+        this.producer = producer;
+    }
+
     public String getTimeout() {
         return timeout;
     }
 
     public void setTimeout(String timeout) {
         this.timeout = timeout;
+    }
+
+    public boolean isSyncSend() {
+        return syncSend;
+    }
+
+    public void setSyncSend(boolean syncSend) {
+        this.syncSend = syncSend;
     }
 }
