@@ -44,21 +44,26 @@ public class StartController {
             HttpHeaderHelper.reSetCookie();
 
             // 列表搜索
-            xnolListScanService.scanListAsync();
+//            xnolListScanService.scanListAsync();
 
-            // 根据累加ID搜索
-            final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get() - 1;
-            int threadCountPerProductId = 5;
-            int step = 10;
+            xnolListScanService.scanIdListAsync();
 
-            for (int interval = 0; interval < step; interval++) {
-                for (int i = 0; i < threadCountPerProductId; i++) {
-                    new Thread(new DetailScanTask(xnolDetailScanService, currentMaxId, interval, step), "Thread-detail-scan-" + interval + "-" + i).start();
-                }
-            }
             return "Started by " + ProductMaxIdHelper.currentMaxProductId.get();
         } else {
             return "Is Running ";
+        }
+    }
+
+    private void startDetail(){
+        // 根据累加ID搜索
+        final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get() - 1;
+        int threadCountPerProductId = 5;
+        int step = 10;
+
+        for (int interval = 0; interval < step; interval++) {
+            for (int i = 0; i < threadCountPerProductId; i++) {
+                new Thread(new DetailScanTask(xnolDetailScanService, currentMaxId, interval, step), "Thread-detail-scan-" + interval + "-" + i).start();
+            }
         }
     }
 

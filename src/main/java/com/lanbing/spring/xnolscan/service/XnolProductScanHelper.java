@@ -1,7 +1,6 @@
 package com.lanbing.spring.xnolscan.service;
 
-
-import com.lanbing.spring.xnolscan.helper.ProductCanBuyHelper;
+import com.lanbing.spring.xnolscan.helper.ScanedProductIdHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
 import com.lanbing.spring.xnolscan.model.Product;
 import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
@@ -22,6 +21,22 @@ public class XnolProductScanHelper extends BaseService {
         for (Product p : productList) {
             logger.info(p.getProductId() + ":<<<<<:" + p);
             productBuyService.checkBuy(DataToDiscUtils.TYPE_LIST, p);
+        }
+    }
+
+    protected void doPageList2() throws Exception {
+        List<Integer> productIdList = XnolHttpRequestHelper.getProductIdList();
+        if (null == productIdList) {
+            return;
+        }
+        for (Integer productId : productIdList) {
+            try {
+                if (ScanedProductIdHelper.add(productId)) {
+                    doDetail(productId);
+                }
+            } catch (Exception e) {
+                logger.error("循环处理产品ID列表异常", e);
+            }
         }
     }
 

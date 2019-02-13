@@ -7,6 +7,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class XnolHttpRequestHelper extends BaseService {
@@ -41,6 +42,17 @@ public class XnolHttpRequestHelper extends BaseService {
         return HttpResponseParseHelper.parseListJson(data);
     }
 
+    public static List<Integer> getProductIdList() throws Exception {
+        List<Product> productList = getProductList();
+        List<Integer> productIds = new ArrayList<>();
+        if (null != productList && productList.size() > 0) {
+            for (Product product : productList) {
+                productIds.add(product.getProductId());
+            }
+        }
+        return productIds;
+    }
+
 
     public static String detailPage(Integer productId) throws Exception {
         // https://www.xiaoniu88.com/product/bid/detail/42991677        转让标详情页
@@ -52,10 +64,10 @@ public class XnolHttpRequestHelper extends BaseService {
         return content;
     }
 
-    public static void main(String[] args) throws Exception{
-        try{
+    public static void main(String[] args) throws Exception {
+        try {
             String result = detailPage(42991694);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

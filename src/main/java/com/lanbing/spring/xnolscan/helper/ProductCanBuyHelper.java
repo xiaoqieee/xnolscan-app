@@ -50,9 +50,6 @@ public class ProductCanBuyHelper {
             return true;
         }
 
-        if (t.getProductTerm() < 90 && t.getTargetRatio() > 0.45) {
-            return true;
-        }
         return false;
     }
 }

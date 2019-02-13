@@ -14,10 +14,10 @@ public class HttpParamHelper {
         list.add(new BasicNameValuePair("termMode", "2"));
         list.add(new BasicNameValuePair("pageNum", "1"));
         list.add(new BasicNameValuePair("pageSize", "20"));
-        list.add(new BasicNameValuePair("minTerm", "0"));
-        list.add(new BasicNameValuePair("maxTerm", "3"));
-        list.add(new BasicNameValuePair("maxAmount", "5000"));
-        list.add(new BasicNameValuePair("tsfProfitSort", "0"));
+//        list.add(new BasicNameValuePair("minTerm", "0"));
+//        list.add(new BasicNameValuePair("maxTerm", "3"));
+//        list.add(new BasicNameValuePair("maxAmount", "5000"));
+//        list.add(new BasicNameValuePair("tsfProfitSort", "0"));
         return list;
     }
 
