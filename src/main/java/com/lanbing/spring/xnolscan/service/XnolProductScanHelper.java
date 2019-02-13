@@ -4,6 +4,7 @@ import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.helper.ScanedProductIdHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
 import com.lanbing.spring.xnolscan.model.Product;
+import com.lanbing.spring.xnolscan.thread.ThreadPoolManager;
 import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,13 +34,23 @@ public class XnolProductScanHelper extends BaseService {
         for (Integer productId : productIdList) {
             try {
                 if (ScanedProductIdHelper.add(productId)) {
-                    doDetail(productId);
-                    ProductMaxIdHelper.setCurMaxProductId(productId);
+                    doDetailAsync(productId);
                 }
             } catch (Exception e) {
                 logger.error("循环处理产品ID列表异常", e);
             }
         }
+    }
+
+    private void doDetailAsync(final Integer productId) {
+        ThreadPoolManager.addTask(() -> {
+            try {
+                doDetail(productId);
+                ProductMaxIdHelper.setCurMaxProductId(productId);
+            } catch (Exception e) {
+                logger.error("异步处理单个产品ID异常", e);
+            }
+        });
     }
 
 
