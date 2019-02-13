@@ -250,7 +250,7 @@
             <!--<appender-ref ref="DBAPPENDER"/>-->
             <appender-ref ref="CONSOLE"/>
 
-            <appender-ref ref="KAFKA"/>
+            <!--<appender-ref ref="KAFKA"/>-->
         </root>
     </springProfile>
 

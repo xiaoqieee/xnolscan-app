@@ -4,7 +4,7 @@ import com.lanbing.spring.xnolscan.model.Product;
 
 public class ProductCanBuyHelper {
 
-    public static boolean canBuy(Product t) {
+    public static boolean canBuy_(Product t) {
         if (t.getLeftAmount() <= 0) {
             return false;
         }
@@ -34,6 +34,23 @@ public class ProductCanBuyHelper {
         }
 
         if (t.getProductTerm() < 240 && t.getTargetRatio() > 0.42) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean canBuy(Product t) {
+        if (t.getLeftAmount() <= 0) {
+            return false;
+        }
+        if (t.getLeftAmount() > 3000) {
+            return false;
+        }
+        if (t.getProductTerm() < 60 && t.getTargetRatio() > 0.4) {
+            return true;
+        }
+
+        if (t.getProductTerm() < 90 && t.getTargetRatio() > 0.45) {
             return true;
         }
         return false;
