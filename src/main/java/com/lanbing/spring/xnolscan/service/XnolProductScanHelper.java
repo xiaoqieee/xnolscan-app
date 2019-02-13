@@ -1,5 +1,6 @@
 package com.lanbing.spring.xnolscan.service;
 
+import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.helper.ScanedProductIdHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
 import com.lanbing.spring.xnolscan.model.Product;
@@ -33,6 +34,7 @@ public class XnolProductScanHelper extends BaseService {
             try {
                 if (ScanedProductIdHelper.add(productId)) {
                     doDetail(productId);
+                    ProductMaxIdHelper.setCurMaxProductId(productId);
                 }
             } catch (Exception e) {
                 logger.error("循环处理产品ID列表异常", e);
