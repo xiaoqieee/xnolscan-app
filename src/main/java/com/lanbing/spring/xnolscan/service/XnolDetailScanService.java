@@ -36,15 +36,39 @@ public class XnolDetailScanService extends XnolProductScanHelper {
             }
             try {
                 Integer productId = productIdBO.getNextProductId();
-                boolean flag = doDetail(productId);
-                if (!flag) {
-                    return true;
+                boolean hasProduct = doDetailLoop(productId);
+                if (hasProduct) {
+                    ProductMaxIdHelper.setCurMaxProductId(productId);
                 }
-                ProductMaxIdHelper.setCurMaxProductId(productId);
-                DateUtils.sleep(500);
             } catch (Exception e) {
                 logger.error("循环处理详情异常", e);
             }
+            return true;
         }
+    }
+
+    public boolean doDetailLoop(Integer productId) throws Exception {
+        boolean hasTheProduct = false;
+        long start = System.currentTimeMillis();
+        int i = 0;
+        while (!hasTheProduct) {
+            if (!StatusHelper.isStarting()) {
+                return false;
+            }
+            i++;
+            if (System.currentTimeMillis() - start > 10 * 60 * 1000) {
+                return false;
+            }
+            if (System.currentTimeMillis() - start > 60 * 1000) {
+                productId = productId + getInterval(i);
+            }
+            hasTheProduct = doDetail(productId);
+            DateUtils.sleep(200);
+        }
+        return true;
+    }
+
+    public int getInterval(int i) {
+        return i % 3 - 1;
     }
 }

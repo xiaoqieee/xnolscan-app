@@ -42,7 +42,7 @@ public class XnolProductScanHelper extends BaseService {
         }
     }
 
-    private void doDetailAsync(final Integer productId) {
+    protected void doDetailAsync(final Integer productId) {
         ThreadPoolManager.addTask(() -> {
             try {
                 doDetail(productId);

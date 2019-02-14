@@ -48,13 +48,16 @@ public class StartController {
 
             xnolListScanService.scanIdListAsync();
 
+            // 详情页处理
+            startDetail();
+
             return "Started by " + ProductMaxIdHelper.currentMaxProductId.get();
         } else {
             return "Is Running ";
         }
     }
 
-    private void startDetail(){
+    private void startDetail() {
         // 根据累加ID搜索
         final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get() - 1;
         int threadCountPerProductId = 5;

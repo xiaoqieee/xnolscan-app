@@ -31,6 +31,10 @@ public class ProductIdBO {
         return this.custProductId.addAndGet(realStep);
     }
 
+    public int getCurrentProductId() {
+        return this.custProductId.get();
+    }
+
 
     public AtomicInteger getCustProductId() {
         return custProductId;
