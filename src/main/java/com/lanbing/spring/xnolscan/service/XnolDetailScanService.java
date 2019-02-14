@@ -49,21 +49,21 @@ public class XnolDetailScanService extends XnolProductScanHelper {
 
     public boolean doDetailLoop(Integer productId) throws Exception {
         boolean hasTheProduct = false;
-        long start = System.currentTimeMillis();
+        long currentProductIdStart = System.currentTimeMillis();
         int i = 0;
         while (!hasTheProduct) {
             if (!StatusHelper.isStarting()) {
                 return false;
             }
             i++;
-            if (System.currentTimeMillis() - start > 10 * 60 * 1000) {
+            if (System.currentTimeMillis() - currentProductIdStart > 10 * 60 * 1000) {
                 return false;
             }
-            if (System.currentTimeMillis() - start > 60 * 1000) {
+            if (System.currentTimeMillis() - currentProductIdStart > 60 * 1000) {
                 productId = productId + getInterval(i);
             }
             hasTheProduct = doDetail(productId);
-            DateUtils.sleep(200);
+//            DateUtils.sleep(200);
         }
         return true;
     }

@@ -55,7 +55,9 @@ public class XnolProductScanHelper extends BaseService {
 
 
     protected boolean doDetail(Integer productId) throws Exception {
+        long start = System.currentTimeMillis();
         Product p = XnolHttpRequestHelper.getProductById2(productId, false);
+//        logger.info("获取产品详情页时间:{}", System.currentTimeMillis() - start);
         logger.info(productId + ":>>>>>:" + p);
         if (null == p) {
             return false;
