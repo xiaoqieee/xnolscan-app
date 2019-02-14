@@ -1,6 +1,7 @@
 package com.lanbing.spring.xnolscan.util;
 
 import com.lanbing.spring.xnolscan.model.Product;
+import com.lanbing.spring.xnolscan.thread.ThreadPoolManager;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -13,32 +14,42 @@ public class DataToDiscUtils {
     public final static int TYPE_DETAIL = 2;
 
     public static void saveToRecord(Integer type, Product t) {
-        try {
-            DataToDiscUtils.appendToFile("D:/data/record.txt", type + ":" + t.toString());
-        } catch (Exception e) {
-
-        }
+        ThreadPoolManager.addTask(() -> {
+            try {
+                DataToDiscUtils.appendToFile("D:/data/record.txt", type + ":" + t.toString());
+            } catch (Exception e) {
+            }
+        });
     }
 
     public static void saveToMaxId(Integer maxProductId) {
-        try {
-            DataToDiscUtils.appendToFile("D:/data/maxid.txt", maxProductId.toString() + "[" + DateUtils.getTimeString() + "]");
-        } catch (Exception e) {
-        }
+        ThreadPoolManager.addTask(() -> {
+            try {
+                DataToDiscUtils.appendToFile("D:/data/maxid.txt", maxProductId.toString() + "[" + DateUtils.getTimeString() + "]");
+            } catch (Exception e) {
+            }
+        });
+
     }
 
     public static void saveToProduct(Product t) {
-        try {
-            DataToDiscUtils.appendToFile("D:/data/product.txt", t.getProductId() + "[" + DateUtils.getTimeString() + "]");
-        } catch (Exception e) {
-        }
+        ThreadPoolManager.addTask(() -> {
+            try {
+                DataToDiscUtils.appendToFile("D:/data/product.txt", t.getProductId() + "[" + DateUtils.getTimeString() + "]");
+            } catch (Exception e) {
+            }
+        });
+
     }
 
     public static void saveByResult(Integer productId, String[] result) {
-        try {
-            DataToDiscUtils.appendToFile("D:/data/result.txt", productId + "[" + result[0] + "][" + result[1] + "][" + DateUtils.getTimeString() + "]");
-        } catch (Exception e) {
-        }
+        ThreadPoolManager.addTask(() -> {
+            try {
+                DataToDiscUtils.appendToFile("D:/data/result.txt", productId + "[" + result[0] + "][" + result[1] + "][" + DateUtils.getTimeString() + "]");
+            } catch (Exception e) {
+            }
+        });
+
     }
 
     private static void appendToFile(String filePath, String dataStr) throws Exception {
