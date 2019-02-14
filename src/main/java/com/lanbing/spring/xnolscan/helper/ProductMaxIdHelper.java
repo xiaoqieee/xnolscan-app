@@ -36,7 +36,7 @@ public class ProductMaxIdHelper {
 
         int productId = start;
 
-        while (step > 10) {
+        while (step > 1) {
             int failTimes = 1;
             productId += step;
             while (true) {
@@ -56,7 +56,7 @@ public class ProductMaxIdHelper {
                 }
             }
             productId -= step;
-            step = step / 2;
+            step = step / 10;
         }
         return productId;
     }
