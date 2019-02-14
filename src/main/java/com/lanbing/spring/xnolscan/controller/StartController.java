@@ -1,5 +1,6 @@
 package com.lanbing.spring.xnolscan.controller;
 
+import com.lanbing.spring.xnolscan.constant.Constants;
 import com.lanbing.spring.xnolscan.helper.HttpHeaderHelper;
 import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.helper.StatusHelper;
@@ -60,8 +61,8 @@ public class StartController {
     private void startDetail() {
         // 根据累加ID搜索
         final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get() - 1;
-        int threadCountPerProductId = 5;
-        int step = 10;
+        int threadCountPerProductId = Constants.SCAN_DETAIL_THREAD_COUNT_PER_ID;
+        int step = Constants.SCAN_DETAIL_STOP;
 
         for (int interval = 0; interval < step; interval++) {
             for (int i = 0; i < threadCountPerProductId; i++) {

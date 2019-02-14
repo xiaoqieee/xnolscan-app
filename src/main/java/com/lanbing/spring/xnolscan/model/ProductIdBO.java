@@ -1,5 +1,6 @@
 package com.lanbing.spring.xnolscan.model;
 
+import com.lanbing.spring.xnolscan.constant.Constants;
 import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.util.DateUtils;
 
@@ -8,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProductIdBO {
 
-    public static int forceStop = 10;
+    public static int forceStop = Constants.SCAN_DETAIL_STOP;
 
 
     private AtomicInteger custProductId;
