@@ -33,12 +33,12 @@ public class RequestTokenHelper {
 
     public synchronized static void add(String token) {
         if (tokenPool.size() > POOL_SIZE) {
-            removeAndGetToken();
+            tokenPool.remove(0);
         }
         tokenPool.add(token);
     }
 
-    public static String[] removeAndGetToken() {
+    public static String[] getToken() {
         if (tokenPool.size() > 0) {
             return tokenPool.remove(0).split(",");
         }
