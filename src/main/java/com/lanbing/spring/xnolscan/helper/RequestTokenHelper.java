@@ -12,15 +12,22 @@ public class RequestTokenHelper {
 
     private static List<String> tokenPool = new ArrayList<>(POOL_SIZE);
 
-    public static void producer() {
+
+    public static void producerAsync() {
+        new Thread(() -> {
+            producer();
+        }).start();
+    }
+
+    private static void producer() {
         while (true) {
             try {
-                String detailPage = XnolHttpRequestHelper.detailPage(ProductMaxIdHelper.currentMaxProductId.get());
+                String detailPage = XnolHttpRequestHelper.detailPage(45759202);
                 if (null != detailPage && detailPage.length() > 0) {
                     String tokenName = TokenUtils.getTokenName(detailPage);
                     String tokenValue = TokenUtils.getTokenValue(detailPage);
 
-                    if (null != tokenName && tokenName.length() > 0 && null != tokenValue && tokenName.length() > 0) {
+                    if (null != tokenName && null != tokenValue) {
                         add(tokenName + "," + tokenValue);
                     }
                 }
@@ -33,12 +40,12 @@ public class RequestTokenHelper {
 
     public synchronized static void add(String token) {
         if (tokenPool.size() > POOL_SIZE) {
-            tokenPool.remove(0);
+            removeAndGetToken();
         }
         tokenPool.add(token);
     }
 
-    public static String[] getToken() {
+    public static String[] removeAndGetToken() {
         if (tokenPool.size() > 0) {
             return tokenPool.remove(0).split(",");
         }
