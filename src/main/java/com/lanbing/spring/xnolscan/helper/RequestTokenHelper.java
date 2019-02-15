@@ -20,7 +20,7 @@ public class RequestTokenHelper {
                     String tokenName = TokenUtils.getTokenName(detailPage);
                     String tokenValue = TokenUtils.getTokenValue(detailPage);
 
-                    if (null != tokenName && null != tokenValue) {
+                    if (null != tokenName && tokenName.length() > 0 && null != tokenValue && tokenName.length() > 0) {
                         add(tokenName + "," + tokenValue);
                     }
                 }
