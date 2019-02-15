@@ -1,15 +1,19 @@
 package com.lanbing.spring.xnolscan.helper;
 
 import com.lanbing.spring.xnolscan.model.Product;
+import com.lanbing.spring.xnolscan.util.DecimalUtil;
+
+import java.math.BigDecimal;
+import java.text.Bidi;
 
 public class ProductCanBuyHelper {
 
     public static boolean canBuy_(Product t) {
-        if (t.getLeftAmount() <= 0) {
+        if (DecimalUtil.le(t.getLeftAmount(), BigDecimal.ZERO)) {
             return false;
         }
 
-        if (t.getLeftAmount() > 3000) {
+        if (DecimalUtil.gt(t.getLeftAmount(), BigDecimal.valueOf(5000))) {
             if (t.getProductTerm() < 90 && t.getTargetRatio() > 0.5) {
                 return true;
             } else {
@@ -40,10 +44,11 @@ public class ProductCanBuyHelper {
     }
 
     public static boolean canBuy(Product t) {
-        if (t.getLeftAmount() <= 0) {
+        if (DecimalUtil.le(t.getLeftAmount(), BigDecimal.ZERO)) {
             return false;
         }
-        if (t.getLeftAmount() > 3000) {
+
+        if (DecimalUtil.gt(t.getLeftAmount(), BigDecimal.valueOf(5000))) {
             return false;
         }
         if (t.getProductTerm() < 40 && t.getRatio() > 0.04) {

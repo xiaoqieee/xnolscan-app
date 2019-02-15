@@ -8,6 +8,7 @@ import com.lanbing.spring.xnolscan.util.TokenUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -30,7 +31,7 @@ public class ProductBuyService extends BaseService {
         }
     }
 
-    public void doBuy(final Integer productId, final Float amount) {
+    public void doBuy(final Integer productId, final BigDecimal amount) {
         poolExecutor.submit(() -> {
             try {
                 String detailPage = XnolHttpRequestHelper.detailPage(productId);
@@ -44,7 +45,7 @@ public class ProductBuyService extends BaseService {
         });
     }
 
-    private String doBuy(Integer productId, Float amount, String detailPage) throws Exception {
+    private String doBuy(Integer productId, BigDecimal amount, String detailPage) throws Exception {
         String tokenName = TokenUtils.getTokenName(detailPage);
         String tokenValue = TokenUtils.getTokenValue(detailPage);
         String result = XnolHttpRequestHelper.submitBuy(productId, amount, tokenName, tokenValue);

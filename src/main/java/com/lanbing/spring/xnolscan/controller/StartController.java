@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 
 @RestController
 public class StartController {
@@ -80,7 +82,7 @@ public class StartController {
     @RequestMapping(path = {"/detailPage/{productId}"})
     public String detailPage(@PathVariable("productId") Integer productId) {
         try {
-            String detailPage = XnolHttpRequestHelper.detailPage(42992383);
+            String detailPage = XnolHttpRequestHelper.detailPage(productId);
             return detailPage;
         } catch (Exception e) {
             return "处理异常";
@@ -88,7 +90,7 @@ public class StartController {
     }
 
     @RequestMapping(path = {"/buy/{productId}/{amount}"})
-    public String buy(@PathVariable("productId") Integer productId, @PathVariable("amount") Float amount) {
+    public String buy(@PathVariable("productId") Integer productId, @PathVariable("amount") BigDecimal amount) {
         try {
             productBuyService.doBuy(productId, amount);
             return "购买成功";

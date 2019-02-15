@@ -2,6 +2,7 @@ package com.lanbing.spring.xnolscan.model;
 
 import com.lanbing.spring.xnolscan.util.DateUtils;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Product {
@@ -9,10 +10,10 @@ public class Product {
     private Float ratio;
     private Float targetRatio;
     private Integer productTerm;
-    private Float leftAmount;
+    private BigDecimal leftAmount;
     private Date nowTime;
 
-    public Product(Integer productId, Float ratio, Float targetRatio, Integer productTerm, Float leftAmount) {
+    public Product(Integer productId, Float ratio, Float targetRatio, Integer productTerm, BigDecimal leftAmount) {
         this.productId = productId;
         this.ratio = ratio;
         this.targetRatio = targetRatio;
@@ -56,11 +57,11 @@ public class Product {
         this.productTerm = productTerm;
     }
 
-    public Float getLeftAmount() {
+    public BigDecimal getLeftAmount() {
         return leftAmount;
     }
 
-    public void setLeftAmount(Float leftAmount) {
+    public void setLeftAmount(BigDecimal leftAmount) {
         this.leftAmount = leftAmount;
     }
 

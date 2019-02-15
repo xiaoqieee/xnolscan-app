@@ -7,6 +7,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class XnolHttpRequestHelper extends BaseService {
     }
 
 
-    public static String submitBuy(Integer productId, Float amount, String tokenName, String tokenValue) throws Exception {
+    public static String submitBuy(Integer productId, BigDecimal amount, String tokenName, String tokenValue) throws Exception {
         String url = "https://www.xiaoniu88.com/product/trade/new/buy?productName=%E5%AE%89%E9%80%B8%E4%BF%A1Z20190127-241261&productTerm=120&productType=5";
         List<NameValuePair> params = HttpParamHelper.buildBuyParam(productId, amount, tokenName, tokenValue);
         HttpPost httpPost = HttpRequestHelper.getHttpPost(url, params);

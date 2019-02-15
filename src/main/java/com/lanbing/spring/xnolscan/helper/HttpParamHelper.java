@@ -3,6 +3,7 @@ package com.lanbing.spring.xnolscan.helper;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class HttpParamHelper {
         return list;
     }
 
-    public static List<NameValuePair> buildBuyParam(Integer productId, Float amount, String tokenName, String tokenValue) {
+    public static List<NameValuePair> buildBuyParam(Integer productId, BigDecimal amount, String tokenName, String tokenValue) {
         List<NameValuePair> list = new LinkedList<>();
         list.add(new BasicNameValuePair("productId", String.valueOf(productId)));
         list.add(new BasicNameValuePair("buyAmount", String.valueOf(amount)));

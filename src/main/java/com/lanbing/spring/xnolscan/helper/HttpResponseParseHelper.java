@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lanbing.spring.xnolscan.model.Product;
+import com.lanbing.spring.xnolscan.util.DecimalUtil;
 import org.springframework.util.StringUtils;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -78,11 +80,13 @@ public class HttpResponseParseHelper {
         Integer productId = Integer.valueOf(product.get("productId").toString());
         Integer productTerm = Integer.valueOf(product.get("productTerm").toString());
         Object leftAmountStr = product.get("leftAmount");
-        Float leftAmount;
+        BigDecimal leftAmount;
         if (null != leftAmountStr) {
-            leftAmount = Float.valueOf(leftAmountStr.toString());
+            leftAmount = new BigDecimal(leftAmountStr.toString());
         } else {
-            leftAmount = Float.valueOf(product.get("productAmount").toString()) - Float.valueOf(product.get("raisedAmount").toString());
+            BigDecimal productAmount = new BigDecimal(product.get("productAmount").toString());
+            BigDecimal raisedAmount = new BigDecimal(product.get("raisedAmount").toString());
+            leftAmount = DecimalUtil.subtract(productAmount, raisedAmount);
         }
 
         float targetRatio = calculate(ratio, productTerm);
@@ -98,5 +102,9 @@ public class HttpResponseParseHelper {
         return rate;
     }
 
+    public static void main(String[] args) {
+        String d = "200";
+        System.out.println(new BigDecimal(d));
+    }
 
 }
