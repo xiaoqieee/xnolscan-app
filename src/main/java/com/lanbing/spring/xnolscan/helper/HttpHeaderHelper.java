@@ -53,15 +53,15 @@ public class HttpHeaderHelper {
     public static Map<String, String> buildGetHeader() {
         Map<String, String> header = new HashMap(8);
         //将浏览器的cookie复制到这里
-        header.put(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+
         header.put(HttpHeaders.ACCEPT_ENCODING, "gzip, deflate, br");
         header.put(HttpHeaders.ACCEPT_LANGUAGE, "zh-CN,zh;q=0.9");
         header.put(HttpHeaders.CONNECTION, "keep-alive");
-        header.put(HttpHeaders.CACHE_CONTROL, "max-age=0");
         header.put("Cookie", cookie);
         header.put(HttpHeaders.HOST, "www.xiaoniu88.com");
-        header.put("Upgrade-Insecure-Requests", "1");
+        // header.put(HttpHeaders.USER_AGENT, "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; QQDownload 1.7; .NET CLR 1.1.4322; CIBA; .NET CLR 2.0.50727)");
         header.put(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");
+        header.put("Upgrade-Insecure-Requests", "1");
 
         return header;
     }
