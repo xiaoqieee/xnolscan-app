@@ -58,6 +58,8 @@ public class XnolHttpRequestHelper extends BaseService {
     public static String detailPage(Integer productId) throws Exception {
         // https://www.xiaoniu88.com/product/bid/detail/42991677        转让标详情页
         // https://www.xiaoniu88.com/product/common/42991677            散标详情页
+//        HttpGet httpGet = HttpRequestHelper.getDefaultHttpGet("https://www.xiaoniu88.com/product/common/" + productId);
+//        HttpGet httpGet = HttpRequestHelper.getHttpGet("https://www.xiaoniu88.com/product/common/" + productId);
         HttpGet httpGet = HttpRequestHelper.getHttpGet("https://www.xiaoniu88.com/product/bid/detail/" + productId);
 //        httpGet.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
 //        httpGet.getParams().setParameter("http.protocol.max-redirects", 110);
