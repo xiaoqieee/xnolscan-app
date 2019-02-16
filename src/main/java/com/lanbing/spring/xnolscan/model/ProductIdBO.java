@@ -1,47 +1,44 @@
 package com.lanbing.spring.xnolscan.model;
 
-import com.lanbing.spring.xnolscan.constant.ConfigKey;
-import com.lanbing.spring.xnolscan.constant.Constants;
-import com.lanbing.spring.xnolscan.helper.BizConfigHelper;
 import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.util.DateUtils;
 
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProductIdBO {
 
 
-    private AtomicInteger custProductId;
+    private Integer custProductId;
     private int interval;
     private int step;
 
 
     public ProductIdBO(Integer custProductId, int interval, int step) {
-        this.custProductId = new AtomicInteger(custProductId + interval);
+        this.custProductId = custProductId + interval;
         this.interval = interval;
         this.step = step;
     }
 
     public void resetCustProductId() {
-        this.custProductId = new AtomicInteger(ProductMaxIdHelper.currentMaxProductId.get() - interval - 1);
+        this.custProductId = ProductMaxIdHelper.currentMaxProductId.get() - interval;
     }
 
     public int getNextProductId() {
         int realStep = getStep(this.step);
-        return this.custProductId.addAndGet(realStep);
+        this.custProductId += realStep;
+        return this.custProductId;
     }
 
     public int getCurrentProductId() {
-        return this.custProductId.get();
+        return this.custProductId;
     }
 
 
-    public AtomicInteger getCustProductId() {
+    public Integer getCustProductId() {
         return custProductId;
     }
 
-    public void setCustProductId(AtomicInteger custProductId) {
+    public void setCustProductId(Integer custProductId) {
         this.custProductId = custProductId;
     }
 

@@ -64,8 +64,6 @@ public class StartController {
         final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get();
         int threadCountPerProductId = Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_THREAD_COUNT, "3"));
         int step = Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_SCAN_STEP, "20"));
-        step = 1;
-        threadCountPerProductId = 1;
         for (int interval = 0; interval < step; interval++) {
             for (int i = 0; i < threadCountPerProductId; i++) {
                 new Thread(new DetailScanTask(xnolDetailScanService, currentMaxId, interval, step), "Thread-detail-scan-" + interval + "-" + i).start();

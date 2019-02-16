@@ -41,6 +41,7 @@ public class XnolDetailScanService extends XnolProductScanHelper {
                 if (hasProduct) {
                     ProductMaxIdHelper.setCurMaxProductId(productId);
                 }
+
                 DateUtils.sleep(Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_LOOP_INTERVAL, "500")));
             } catch (Exception e) {
                 logger.error("循环处理详情异常", e);
@@ -54,20 +55,32 @@ public class XnolDetailScanService extends XnolProductScanHelper {
         long currentProductIdStart = System.currentTimeMillis();
         int i = 0;
         while (!hasTheProduct) {
-            if (!StatusHelper.isStarting()) {
+            if (breakRetern(currentProductIdStart)) {
                 return false;
             }
-            i++;
-            if (System.currentTimeMillis() - currentProductIdStart > 10 * 60 * 1000) {
-                return false;
-            }
-            if (System.currentTimeMillis() - currentProductIdStart > 60 * 1000) {
-                productId = productId + getInterval(i);
-            }
-            hasTheProduct = doDetail(productId);
+            Integer mohuProductId = getMohuProductId(productId, i, currentProductIdStart);
+            hasTheProduct = doDetail(mohuProductId);
             DateUtils.sleep(Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_LOOP_INTERVAL, "500")));
         }
         return true;
+    }
+
+    private boolean breakRetern(long currentProductIdStart) {
+        if (!StatusHelper.isStarting()) {
+            return true;
+        }
+
+        if (System.currentTimeMillis() - currentProductIdStart > 10 * 60 * 1000) {
+            return true;
+        }
+        return false;
+    }
+
+    private Integer getMohuProductId(Integer productId, int count, long currentProductIdStart) {
+        if (System.currentTimeMillis() - currentProductIdStart > 60 * 1000) {
+            return productId + getInterval(count);
+        }
+        return productId;
     }
 
     public int getInterval(int i) {
