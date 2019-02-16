@@ -7,4 +7,8 @@ package com.lanbing.spring.xnolscan.constant;
 public interface ConfigKey {
 
     String DETAIL_LOOP_INTERVAL = "detail.loop.interval";
+
+    String DETAIL_THREAD_COUNT = "detail.thread.count";
+
+    String DETAIL_SCAN_STEP = "detail.scan.step";
 }
