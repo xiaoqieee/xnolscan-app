@@ -46,7 +46,7 @@ public class XnolListScanService extends XnolProductScanHelper {
             }
             try {
                 doPageList2();
-                Thread.sleep(1000);
+                Thread.sleep(5000);
             } catch (Exception e) {
             }
         }

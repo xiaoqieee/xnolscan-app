@@ -5,7 +5,7 @@ import com.lanbing.spring.xnolscan.util.TokenUtils;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class RequestTokenHelper {
+public class RequestTokenHelper{
 
     private final static int POOL_SIZE = 100;
 
@@ -34,7 +34,7 @@ public class RequestTokenHelper {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            DateUtils.sleep(200);
+            DateUtils.sleep(1000);
         }
     }
 
