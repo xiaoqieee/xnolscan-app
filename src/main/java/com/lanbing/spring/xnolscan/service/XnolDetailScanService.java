@@ -1,6 +1,8 @@
 package com.lanbing.spring.xnolscan.service;
 
 
+import com.lanbing.spring.xnolscan.constant.ConfigKey;
+import com.lanbing.spring.xnolscan.helper.BizConfigHelper;
 import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.helper.StatusHelper;
 import com.lanbing.spring.xnolscan.model.ProductIdBO;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class XnolDetailScanService extends XnolProductScanHelper {
-
 
     public void doDetail(ProductIdBO productIdBO) {
         while (true) {
@@ -40,6 +41,7 @@ public class XnolDetailScanService extends XnolProductScanHelper {
                 if (hasProduct) {
                     ProductMaxIdHelper.setCurMaxProductId(productId);
                 }
+                DateUtils.sleep(Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_LOOP_INTERVAL, "500")));
             } catch (Exception e) {
                 logger.error("循环处理详情异常", e);
             }
@@ -63,7 +65,7 @@ public class XnolDetailScanService extends XnolProductScanHelper {
                 productId = productId + getInterval(i);
             }
             hasTheProduct = doDetail(productId);
-//            DateUtils.sleep(200);
+            DateUtils.sleep(Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_LOOP_INTERVAL, "500")));
         }
         return true;
     }

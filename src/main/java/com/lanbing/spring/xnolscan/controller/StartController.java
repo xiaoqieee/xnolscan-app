@@ -1,10 +1,7 @@
 package com.lanbing.spring.xnolscan.controller;
 
 import com.lanbing.spring.xnolscan.constant.Constants;
-import com.lanbing.spring.xnolscan.helper.HttpHeaderHelper;
-import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
-import com.lanbing.spring.xnolscan.helper.StatusHelper;
-import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
+import com.lanbing.spring.xnolscan.helper.*;
 import com.lanbing.spring.xnolscan.model.ProductIdBO;
 import com.lanbing.spring.xnolscan.service.ProductBuyService;
 import com.lanbing.spring.xnolscan.service.XnolDetailScanService;
@@ -40,6 +37,10 @@ public class StartController {
     public String start(@PathVariable("baseProductId") Integer baseProductId) {
 
         if (StatusHelper.canStart()) {
+
+            // Token
+            RequestTokenHelper.producerAsync();
+
             // 设置当前初始ID
             ProductMaxIdHelper.init(baseProductId);
 
@@ -127,5 +128,11 @@ public class StartController {
             DateUtils.sleep(1000);
             logger.info("测试日志》》》" + i++);
         }
+    }
+
+    @RequestMapping(path = {"/loadConfig"})
+    public String loadConfig() {
+        BizConfigHelper.load();
+        return "处理成功";
     }
 }

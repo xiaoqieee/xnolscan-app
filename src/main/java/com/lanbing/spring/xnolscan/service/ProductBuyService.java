@@ -1,6 +1,7 @@
 package com.lanbing.spring.xnolscan.service;
 
 import com.lanbing.spring.xnolscan.helper.ProductCanBuyHelper;
+import com.lanbing.spring.xnolscan.helper.RequestTokenHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
 import com.lanbing.spring.xnolscan.model.Product;
 import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
@@ -16,7 +17,7 @@ import java.util.concurrent.Executors;
 @Service
 public class ProductBuyService extends BaseService {
 
-    private static ExecutorService poolExecutor = Executors.newFixedThreadPool(3);
+    private static ExecutorService poolExecutor = Executors.newFixedThreadPool(20);
 
 
     public void checkBuy(Integer type, Product t) {
@@ -34,9 +35,9 @@ public class ProductBuyService extends BaseService {
     public void doBuy(final Integer productId, final BigDecimal amount) {
         poolExecutor.submit(() -> {
             try {
-                String detailPage = XnolHttpRequestHelper.detailPage(productId);
-//                logger.info("[购买接口]-获取Token.productId:{}, detailPage:{}", productId, detailPage);
-                String buyResultPage = doBuy(productId, amount, detailPage);
+                logger.info("[购买接口]-开始进行购买.productId:{}", productId);
+
+                String buyResultPage = doBuyD(productId, amount);
 
                 doBuyResult(productId, buyResultPage);
             } catch (Exception e) {
@@ -48,6 +49,15 @@ public class ProductBuyService extends BaseService {
     private String doBuy(Integer productId, BigDecimal amount, String detailPage) throws Exception {
         String tokenName = TokenUtils.getTokenName(detailPage);
         String tokenValue = TokenUtils.getTokenValue(detailPage);
+        String result = XnolHttpRequestHelper.submitBuy(productId, amount, tokenName, tokenValue);
+        logger.info("[购买接口]-获取到购买结果.productId:{},result:{}", productId, result);
+        return result;
+    }
+
+    private String doBuyD(Integer productId, BigDecimal amount) throws Exception {
+        String[] token = RequestTokenHelper.getToken();
+        String tokenName = token[0];
+        String tokenValue = token[1];
         String result = XnolHttpRequestHelper.submitBuy(productId, amount, tokenName, tokenValue);
         logger.info("[购买接口]-获取到购买结果.productId:{},result:{}", productId, result);
         return result;

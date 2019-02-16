@@ -4,7 +4,7 @@
     <contextName>xnolscan</contextName>
 
     <!--属性2：定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_PATH" value="D:/log/mylog"/>
+    <property name="LOG_PATH" value="/log/mylog"/>
     <property name="APP_NAME" value="xnolscan"/>
     <!--appender用来格式化日志输出节点，有俩个属性name和class，class用来指定哪种输出策略，常用就是控制台输出策略和文件输出策略。-->
     <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,,,, -->

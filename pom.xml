@@ -93,6 +93,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.lanbing.spring.xnolscan.XnolscanApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
