@@ -48,7 +48,7 @@ public class StartController {
             // 刷新cookie
             HttpHeaderHelper.reSetCookie();
 
-            xnolListScanService.scanIdListAsync();
+//            xnolListScanService.scanIdListAsync();
 
             // 详情页处理
             startDetail();
@@ -61,10 +61,11 @@ public class StartController {
 
     private void startDetail() {
         // 根据累加ID搜索
-        final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get() - 1;
+        final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get();
         int threadCountPerProductId = Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_THREAD_COUNT, "3"));
         int step = Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_SCAN_STEP, "20"));
-
+        step = 1;
+        threadCountPerProductId = 1;
         for (int interval = 0; interval < step; interval++) {
             for (int i = 0; i < threadCountPerProductId; i++) {
                 new Thread(new DetailScanTask(xnolDetailScanService, currentMaxId, interval, step), "Thread-detail-scan-" + interval + "-" + i).start();
@@ -92,16 +93,6 @@ public class StartController {
     public String buy(@PathVariable("productId") Integer productId, @PathVariable("amount") BigDecimal amount) {
         try {
             productBuyService.doBuy(productId, amount);
-            return "购买成功";
-        } catch (Exception e) {
-            return "处理异常";
-        }
-    }
-
-    @RequestMapping(path = {"/setStop/{forceStop}"})
-    public String setForceStop(@PathVariable("forceStop") Integer forceStop) {
-        try {
-            ProductIdBO.forceStop = forceStop;
             return "购买成功";
         } catch (Exception e) {
             return "处理异常";
