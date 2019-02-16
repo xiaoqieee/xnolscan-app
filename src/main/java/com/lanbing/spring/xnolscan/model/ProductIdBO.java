@@ -20,6 +20,7 @@ public class ProductIdBO {
     }
 
     public void resetCustProductId() {
+        int realStep = getStep(this.step);
         this.custProductId = ProductMaxIdHelper.currentMaxProductId.get() - interval;
     }
 

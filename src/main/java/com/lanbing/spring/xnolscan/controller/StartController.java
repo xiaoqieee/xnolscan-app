@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -64,10 +66,14 @@ public class StartController {
         final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get();
         int threadCountPerProductId = Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_THREAD_COUNT, "3"));
         int step = Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_SCAN_STEP, "20"));
+        List<Thread> threads = new ArrayList<>();
         for (int interval = 0; interval < step; interval++) {
             for (int i = 0; i < threadCountPerProductId; i++) {
-                new Thread(new DetailScanTask(xnolDetailScanService, currentMaxId, interval, step), "Thread-detail-scan-" + interval + "-" + i).start();
+                threads.add(new Thread(new DetailScanTask(xnolDetailScanService, currentMaxId, interval, step), "Thread-detail-scan-" + interval + "-" + i));
             }
+        }
+        for (Thread t : threads) {
+            t.start();
         }
     }
 
