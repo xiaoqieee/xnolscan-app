@@ -35,7 +35,7 @@ public class ProductBuyService extends BaseService {
     public void doBuy(final Integer productId, final BigDecimal amount) {
         poolExecutor.submit(() -> {
             try {
-                logger.info("[购买接口]-开始进行购买.productId:{}", productId);
+                logger.info("[购买接口]-开始进行购买.productId:{}, amount:{}", productId, amount);
 
                 String buyResultPage = doBuyD(productId, amount);
 

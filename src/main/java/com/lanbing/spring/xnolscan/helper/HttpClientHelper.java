@@ -1,6 +1,7 @@
 package com.lanbing.spring.xnolscan.helper;
 
 import org.apache.http.HttpEntityEnclosingRequest;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
 import org.apache.http.NoHttpResponseException;
 import org.apache.http.client.HttpClient;
