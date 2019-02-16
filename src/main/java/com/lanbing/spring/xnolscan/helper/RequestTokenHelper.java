@@ -32,7 +32,7 @@ public class RequestTokenHelper {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
             DateUtils.sleep(200);
         }
