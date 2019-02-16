@@ -82,6 +82,14 @@ public class DataToDiscUtils {
         }
     }
 
+    public static List<String> getConditionStr() {
+        try {
+            return getLines("/data/condition.txt");
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+
     private static String getFirstLine(String filePath) throws Exception {
         List<String> dataArr = FileUtils.readLines(new File(filePath), "UTF-8");
         if (dataArr != null && dataArr.size() > 0) {
