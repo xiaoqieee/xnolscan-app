@@ -47,7 +47,7 @@ public class HttpClientHelper {
         RequestConfig requestConfig = RequestConfig.custom()
                 .setConnectionRequestTimeout(2000)
                 .setSocketTimeout(30000)
-                .setConnectTimeout(500)
+                .setConnectTimeout(5000)
                 .setCircularRedirectsAllowed(true)
                 .setCookieSpec(CookieSpecs.DEFAULT)
                 .setRelativeRedirectsAllowed(false)

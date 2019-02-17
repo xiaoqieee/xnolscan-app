@@ -1,12 +1,9 @@
 package com.lanbing.spring.xnolscan.controller;
 
-import com.lanbing.spring.xnolscan.constant.Constants;
 import com.lanbing.spring.xnolscan.helper.*;
 import com.lanbing.spring.xnolscan.model.ProductIdBO;
 import com.lanbing.spring.xnolscan.service.ProductBuyService;
-import com.lanbing.spring.xnolscan.service.XnolDetailScanService;
-import com.lanbing.spring.xnolscan.service.XnolListScanService;
-import com.lanbing.spring.xnolscan.thread.DetailScanTask;
+import com.lanbing.spring.xnolscan.service.ScanStartService;
 import com.lanbing.spring.xnolscan.util.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +19,7 @@ import java.math.BigDecimal;
 public class StartController {
 
     @Autowired
-    private XnolListScanService xnolListScanService;
-
-    @Autowired
-    private XnolDetailScanService xnolDetailScanService;
+    private ScanStartService scanStartService;
 
     @Autowired
     private ProductBuyService productBuyService;
@@ -38,22 +32,7 @@ public class StartController {
 
         if (StatusHelper.canStart()) {
 
-            // 获取token
-            RequestTokenHelper.producerAsync();
-
-            // 设置当前初始ID
-            ProductMaxIdHelper.init(baseProductId);
-
-            // 刷新cookie
-            HttpHeaderHelper.reSetCookie();
-
-            // 列表搜索
-//            xnolListScanService.scanListAsync();
-
-            xnolListScanService.scanIdListAsync();
-
-            // 详情页处理
-            startDetail();
+            scanStartService.start(baseProductId);
 
             return "Started by " + ProductMaxIdHelper.currentMaxProductId.get();
         } else {
@@ -61,18 +40,6 @@ public class StartController {
         }
     }
 
-    private void startDetail() {
-        // 根据累加ID搜索
-        final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get() - 1;
-        int threadCountPerProductId = Constants.SCAN_DETAIL_THREAD_COUNT_PER_ID;
-        int step = Constants.SCAN_DETAIL_STOP;
-
-        for (int interval = 0; interval < step; interval++) {
-            for (int i = 0; i < threadCountPerProductId; i++) {
-                new Thread(new DetailScanTask(xnolDetailScanService, currentMaxId, interval, step), "Thread-detail-scan-" + interval + "-" + i).start();
-            }
-        }
-    }
 
     @RequestMapping(path = {"/stop"})
     public String stop() {
