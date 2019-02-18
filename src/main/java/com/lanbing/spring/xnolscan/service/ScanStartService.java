@@ -13,6 +13,9 @@ public class ScanStartService extends BaseService {
 
 
     @Autowired
+    private LoginUserService loginUserService;
+
+    @Autowired
     private XnolListScanService xnolListScanService;
 
     @Autowired
@@ -26,7 +29,7 @@ public class ScanStartService extends BaseService {
         ProductMaxIdHelper.init(baseProductId);
 
         // 刷新cookie
-        HttpHeaderHelper.reSetCookie();
+        HttpHeaderHelper.reSetCookie(loginUserService.getLoginUser());
 
         // 列表搜索
 //            xnolListScanService.scanListAsync();

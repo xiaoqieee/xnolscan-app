@@ -6,6 +6,8 @@ import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
 import com.lanbing.spring.xnolscan.model.Product;
 import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
 import com.lanbing.spring.xnolscan.util.TokenUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,13 +21,15 @@ public class ProductBuyService extends BaseService {
 
     private static ExecutorService poolExecutor = Executors.newFixedThreadPool(3);
 
+    @Autowired
+    private LoginUserService loginUserService;
 
     public void checkBuy(Integer type, Product t) {
         try {
             if (!ProductCanBuyHelper.canBuy(t)) {
                 return;
             }
-            DataToDiscUtils.saveToRecord(type, t);
+            DataToDiscUtils.saveToRecord(loginUserService.getLoginUser(), type, t);
             doBuy(t.getProductId(), t.getLeftAmount());
         } catch (Exception e) {
             logger.error("[购买]-购买异常,productId:{}", t.getProductId(), e);
@@ -65,10 +69,11 @@ public class ProductBuyService extends BaseService {
 
     private void doBuyResult(Integer productId, String resultPage) {
         String[] result = ProductBuyService.getResult(resultPage);
+        String loginUser = loginUserService.getLoginUser();
         if (null == result) {
-            DataToDiscUtils.saveByResult(productId, new String[]{"-1", "结果异常"});
+            DataToDiscUtils.saveByResult(loginUser, productId, new String[]{"-1", "结果异常"});
         } else {
-            DataToDiscUtils.saveByResult(productId, result);
+            DataToDiscUtils.saveByResult(loginUser, productId, result);
         }
     }
 

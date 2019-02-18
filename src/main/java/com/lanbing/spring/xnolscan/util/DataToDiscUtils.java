@@ -15,10 +15,10 @@ public class DataToDiscUtils {
     public final static int TYPE_LIST = 1;
     public final static int TYPE_DETAIL = 2;
 
-    public static void saveToRecord(Integer type, Product t) {
+    public static void saveToRecord(String loginUser, Integer type, Product t) {
         ThreadPoolManager.addTask(() -> {
             try {
-                DataToDiscUtils.appendToFile("/data/record.txt", type + ":" + t.toString());
+                DataToDiscUtils.appendToFile("/data/" + loginUser + "/record.txt", type + ":" + t.toString());
             } catch (Exception e) {
             }
         });
@@ -34,20 +34,11 @@ public class DataToDiscUtils {
 
     }
 
-    public static void saveToProduct(Product t) {
+
+    public static void saveByResult(String loginUser, Integer productId, String[] result) {
         ThreadPoolManager.addTask(() -> {
             try {
-                DataToDiscUtils.appendToFile("/data/product.txt", t.getProductId() + "[" + DateUtils.getTimeString() + "]");
-            } catch (Exception e) {
-            }
-        });
-
-    }
-
-    public static void saveByResult(Integer productId, String[] result) {
-        ThreadPoolManager.addTask(() -> {
-            try {
-                DataToDiscUtils.appendToFile("/data/result.txt", productId + "[" + result[0] + "][" + result[1] + "][" + DateUtils.getTimeString() + "]");
+                DataToDiscUtils.appendToFile("/data/" + loginUser + "/result.txt", productId + "[" + result[0] + "][" + result[1] + "][" + DateUtils.getTimeString() + "]");
             } catch (Exception e) {
             }
         });
@@ -65,9 +56,9 @@ public class DataToDiscUtils {
         out.close();
     }
 
-    public static String getCookie() {
+    public static String getCookie(String loginUser) {
         try {
-            return getFirstLine("/data/cookie.txt");
+            return getFirstLine("/data/" + loginUser + "/cookie.txt");
         } catch (Exception e) {
 
         }
