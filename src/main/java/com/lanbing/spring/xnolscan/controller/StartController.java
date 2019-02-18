@@ -2,6 +2,7 @@ package com.lanbing.spring.xnolscan.controller;
 
 import com.lanbing.spring.xnolscan.helper.*;
 import com.lanbing.spring.xnolscan.model.Product;
+import com.lanbing.spring.xnolscan.service.LoginUserService;
 import com.lanbing.spring.xnolscan.service.ProductBuyService;
 import com.lanbing.spring.xnolscan.service.ScanStartService;
 import com.lanbing.spring.xnolscan.util.DateUtils;
@@ -25,20 +26,17 @@ public class StartController {
     @Autowired
     private ProductBuyService productBuyService;
 
+    @Autowired
+    private LoginUserService loginUserService;
+
     private final Logger logger = LoggerFactory.getLogger(StartController.class);
 
 
     @RequestMapping(path = {"/start/{baseProductId}"})
     public String start(@PathVariable("baseProductId") Integer baseProductId) {
 
-        if (StatusHelper.canStart()) {
+        return scanStartService.start(baseProductId);
 
-            scanStartService.start(baseProductId);
-
-            return "Started by " + ProductMaxIdHelper.currentMaxProductId.get();
-        } else {
-            return "Is Running ";
-        }
     }
 
 
@@ -72,7 +70,7 @@ public class StartController {
     public String reSetCookie() {
         try {
             // 刷新cookie
-            HttpHeaderHelper.reSetCookie();
+            HttpHeaderHelper.reSetCookie(loginUserService.getLoginUser());
             return "处理成功";
         } catch (Exception e) {
             return "处理异常";

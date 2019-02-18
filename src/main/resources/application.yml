@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8081
 
 spring:
   profiles:
@@ -28,8 +28,8 @@ mybatis:
  # config: classpath:logback-spring.xml # 注意：对应实体类的路径
 
 
- loginUser:
-      userName: user01
+loginUser:
+  userName: user02
 
 
 

@@ -4,6 +4,7 @@ import com.lanbing.spring.xnolscan.constant.Constants;
 import com.lanbing.spring.xnolscan.helper.HttpHeaderHelper;
 import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.helper.RequestTokenHelper;
+import com.lanbing.spring.xnolscan.helper.StatusHelper;
 import com.lanbing.spring.xnolscan.thread.DetailScanTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,23 +22,28 @@ public class ScanStartService extends BaseService {
     @Autowired
     private XnolDetailScanService xnolDetailScanService;
 
-    public void start(Integer baseProductId){
-        // 获取token
-        RequestTokenHelper.producerAsync();
+    public String start(Integer baseProductId){
 
-        // 设置当前初始ID
-        ProductMaxIdHelper.init(baseProductId);
+        if (StatusHelper.canStart()) {
 
-        // 刷新cookie
-        HttpHeaderHelper.reSetCookie(loginUserService.getLoginUser());
+            // 获取token
+            RequestTokenHelper.producerAsync();
 
-        // 列表搜索
-//            xnolListScanService.scanListAsync();
+            // 设置当前初始ID
+            ProductMaxIdHelper.init(baseProductId);
 
-        xnolListScanService.scanIdListAsync();
+            // 刷新cookie
+            HttpHeaderHelper.reSetCookie(loginUserService.getLoginUser());
 
-        // 详情页处理
-        startDetail();
+            xnolListScanService.scanIdListAsync();
+
+            // 详情页处理
+            startDetail();
+
+            return "Started by " + ProductMaxIdHelper.currentMaxProductId.get();
+        } else {
+            return "Is Running ";
+        }
     }
 
 
