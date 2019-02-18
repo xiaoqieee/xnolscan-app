@@ -56,11 +56,11 @@ public class ProductCanBuyHelper {
         if (DecimalUtil.gt(t.getLeftAmount(), BigDecimal.valueOf(5000))) {
             return false;
         }
-        if (t.getProductTerm() < 40 && t.getRatio() > 0.03) {
+        if (t.getProductTerm() < 40 && t.getRatio() > 0.04) {
             return true;
         }
 
-        if (t.getProductTerm() < 60 && t.getRatio() > 0.04) {
+        if (t.getProductTerm() < 60 && t.getRatio() > 0.06) {
             return true;
         }
 
@@ -89,10 +89,11 @@ public class ProductCanBuyHelper {
     }
 
     private static String[] getCondition() {
-        List<String> strings = DataToDiscUtils.getConfigStr();
-        String[] result = new String[]{"40:0.03", "60:0.04"};
+        List<String> strings = DataToDiscUtils.getConditionStr();
+        String[] result = new String[]{"40:0.04", "60:0.045"};
         if (null != strings & strings.size() > 0) {
             int i = 0;
+            result = new String[strings.size()];
             for (String str : strings) {
                 if (null != str && str.length() > 0 && str.contains(":")) {
                     result[i++] = str;
@@ -100,5 +101,9 @@ public class ProductCanBuyHelper {
             }
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getCondition());
     }
 }
