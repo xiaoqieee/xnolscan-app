@@ -1,5 +1,6 @@
 package com.lanbing.spring.xnolscan.helper;
 
+import com.lanbing.spring.xnolscan.constant.Constants;
 import com.lanbing.spring.xnolscan.model.Product;
 import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
 import com.lanbing.spring.xnolscan.util.DecimalUtil;
@@ -71,7 +72,7 @@ public class ProductCanBuyHelper {
             return false;
         }
 
-        if (DecimalUtil.gt(t.getLeftAmount(), BigDecimal.valueOf(5000))) {
+        if (DecimalUtil.gt(t.getLeftAmount(), BigDecimal.valueOf(Constants.MAX_PRODUCT_AMOUNT))) {
             return false;
         }
 
