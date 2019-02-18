@@ -1,11 +1,7 @@
 package com.lanbing.spring.xnolscan.controller;
 
-import com.lanbing.spring.xnolscan.constant.Constants;
-import com.lanbing.spring.xnolscan.helper.HttpHeaderHelper;
-import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
-import com.lanbing.spring.xnolscan.helper.StatusHelper;
-import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
-import com.lanbing.spring.xnolscan.model.ProductIdBO;
+import com.lanbing.spring.xnolscan.helper.*;
+import com.lanbing.spring.xnolscan.model.Product;
 import com.lanbing.spring.xnolscan.service.ProductBuyService;
 import com.lanbing.spring.xnolscan.service.ScanStartService;
 import com.lanbing.spring.xnolscan.util.DateUtils;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 
