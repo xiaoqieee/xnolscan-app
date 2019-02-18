@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 @Service
 public class ProductBuyService extends BaseService {
 
-    private static ExecutorService poolExecutor = Executors.newFixedThreadPool(20);
+    private static ExecutorService poolExecutor = Executors.newFixedThreadPool(3);
 
 
     public void checkBuy(Integer type, Product t) {
