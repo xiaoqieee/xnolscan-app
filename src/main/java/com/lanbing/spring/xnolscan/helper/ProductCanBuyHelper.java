@@ -53,9 +53,6 @@ public class ProductCanBuyHelper {
             return false;
         }
 
-        if (DecimalUtil.gt(t.getLeftAmount(), BigDecimal.valueOf(5000))) {
-            return false;
-        }
         if (t.getProductTerm() < 40 && t.getRatio() > 0.04) {
             return true;
         }
@@ -69,10 +66,6 @@ public class ProductCanBuyHelper {
 
     public static boolean canBuyD(Product t) {
         if (DecimalUtil.le(t.getLeftAmount(), BigDecimal.ZERO)) {
-            return false;
-        }
-
-        if (DecimalUtil.gt(t.getLeftAmount(), BigDecimal.valueOf(Constants.MAX_PRODUCT_AMOUNT))) {
             return false;
         }
 
