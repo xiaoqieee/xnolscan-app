@@ -3,6 +3,7 @@ package com.lanbing.spring.xnolscan.controller;
 import com.lanbing.spring.xnolscan.constant.ConfigKey;
 import com.lanbing.spring.xnolscan.constant.Constants;
 import com.lanbing.spring.xnolscan.helper.*;
+import com.lanbing.spring.xnolscan.model.Product;
 import com.lanbing.spring.xnolscan.model.ProductIdBO;
 import com.lanbing.spring.xnolscan.service.ProductBuyService;
 import com.lanbing.spring.xnolscan.service.XnolDetailScanService;
@@ -127,5 +128,15 @@ public class StartController {
     public String loadConfig() {
         BizConfigHelper.load();
         return "处理成功";
+    }
+
+    @RequestMapping(path = {"/isLogin"})
+    public String isLogin() {
+        try {
+            List<Product> productList = XnolHttpRequestHelper.getProductList();
+            return null != productList && productList.size() > 0 ? "已经登录" : "登录失效";
+        } catch (Exception e) {
+        }
+        return "登录异常";
     }
 }
