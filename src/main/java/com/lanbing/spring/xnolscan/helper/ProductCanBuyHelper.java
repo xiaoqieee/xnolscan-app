@@ -44,7 +44,7 @@ public class ProductCanBuyHelper {
 
     private static String[] getCondition() {
         List<String> strings = DataToDiscUtils.getConditionStr();
-        String[] result = new String[]{"40:0.04", "60:0.045"};
+        String[] result = new String[]{"40:0.08", "60:0.12"};
         if (null != strings & strings.size() > 0) {
             int i = 0;
             result = new String[strings.size()];
