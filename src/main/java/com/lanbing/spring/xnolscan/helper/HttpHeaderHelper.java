@@ -15,9 +15,6 @@ public class HttpHeaderHelper {
 
     public static String cookie;
 
-    static {
-//        cookie = DataToDiscUtils.getCookie();
-    }
 
     public static void reSetCookie(String loginUser) {
         cookie = DataToDiscUtils.getCookie(loginUser);
