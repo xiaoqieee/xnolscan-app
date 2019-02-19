@@ -14,11 +14,11 @@ public class ProductCanBuyHelper {
             return false;
         }
 
-        if (t.getProductTerm() < 40 && t.getRatio() > 0.04) {
+        if (t.getProductTerm() < 40 && t.getRatio() > 0.06) {
             return true;
         }
 
-        if (t.getProductTerm() < 60 && t.getRatio() > 0.06) {
+        if (t.getProductTerm() < 60 && t.getRatio() > 0.10) {
             return true;
         }
 
@@ -44,7 +44,7 @@ public class ProductCanBuyHelper {
 
     private static String[] getCondition() {
         List<String> strings = DataToDiscUtils.getConditionStr();
-        String[] result = new String[]{"40:0.04", "60:0.045"};
+        String[] result = new String[]{"40:0.06", "60:0.08"};
         if (null != strings & strings.size() > 0) {
             int i = 0;
             result = new String[strings.size()];

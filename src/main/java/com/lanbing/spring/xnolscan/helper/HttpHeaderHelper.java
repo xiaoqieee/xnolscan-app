@@ -17,11 +17,11 @@ public class HttpHeaderHelper {
 
     static {
 //        cookie = DataToDiscUtils.getCookie();
-        cookie = "_ga=GA1.2.1522612021.1507704380; Hm_lvt_bfadffd6cb8f795e488eccaeb28cab61=1532349774; _gid=GA1.2.513164349.1549935317; Hm_lvt_7226b8c48cd07619c7a9ebd471d9d589=1549935317,1549953491,1550106840; sr=331271.43.11.3.116.7.225.146.0.33.20.15.07; JSESSIONID=11200D8265C0EFF8844E1BFE4575C7D3.t-9003; lcksid=5c664fc4269166007c5d991a; SESSIONID=eef15026-d6c9-46ca-878f-09fa3bda56dd; referer=\"https://www.xiaoniu88.com/_2019-02-15\"; Hm_lpvt_7226b8c48cd07619c7a9ebd471d9d589=1550209466";
     }
 
     public static void reSetCookie(String loginUser) {
         cookie = DataToDiscUtils.getCookie(loginUser);
+        RequestTokenHelper.clear();
     }
 
     /**

@@ -52,6 +52,10 @@ public class RequestTokenHelper{
         return null;
     }
 
+    public static void clear(){
+        tokenPool.clear();
+    }
+
     public static void main(String[] args) {
         producer();
     }

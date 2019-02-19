@@ -29,7 +29,7 @@ mybatis:
 
 
 loginUser:
-  userName: user02
+  userName: user01
 
 
 
