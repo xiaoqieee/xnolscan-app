@@ -11,4 +11,6 @@ public interface ConfigKey {
     String DETAIL_THREAD_COUNT = "detail.thread.count";
 
     String DETAIL_SCAN_STEP = "detail.scan.step";
+
+    String BASE_MAX_PRODUCTID = "base.max.productid";
 }

@@ -3,7 +3,6 @@ package com.lanbing.spring.xnolscan.util;
 import com.lanbing.spring.xnolscan.model.Product;
 import com.lanbing.spring.xnolscan.thread.ThreadPoolManager;
 import org.apache.commons.io.FileUtils;
-import org.apache.kafka.common.protocol.types.Field;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -92,5 +91,21 @@ public class DataToDiscUtils {
     private static List<String> getLines(String filePath) throws Exception {
         List<String> dataArr = FileUtils.readLines(new File(filePath), "UTF-8");
         return dataArr;
+    }
+
+    public static Integer getMaxProductId() {
+        try {
+            List<String> lines = getLines("/data/maxid.txt");
+            if (lines != null && lines.size() > 0) {
+                String line = lines.get(lines.size() - 1);
+                return Integer.valueOf(line.split("\\[")[0]);
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getMaxProductId());
     }
 }
