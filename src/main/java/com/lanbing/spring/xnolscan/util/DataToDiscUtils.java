@@ -97,7 +97,7 @@ public class DataToDiscUtils {
         try {
             List<String> lines = getLines("/data/maxid.txt");
             if (lines != null && lines.size() > 0) {
-                String line = lines.get(lines.size() - 1);
+                String line = lines.get(lines.size() - 5);
                 return Integer.valueOf(line.split("\\[")[0]);
             }
         } catch (Exception e) {

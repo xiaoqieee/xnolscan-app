@@ -52,7 +52,7 @@ public class ProductMaxIdHelper {
                         break;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println("获取详情页异常，异常信息:" + e);
                 }
             }
             productId -= step;

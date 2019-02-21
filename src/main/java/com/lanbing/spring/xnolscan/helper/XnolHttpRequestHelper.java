@@ -5,7 +5,6 @@ import com.lanbing.spring.xnolscan.service.BaseService;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.ClientPNames;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
