@@ -5,7 +5,7 @@ import com.lanbing.spring.xnolscan.util.TokenUtils;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class RequestTokenHelper{
+public class RequestTokenHelper {
 
     private final static int POOL_SIZE = 100;
 
@@ -32,7 +32,7 @@ public class RequestTokenHelper{
                     }
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("生产Token异常。异常信息：" + e);
             }
             DateUtils.sleep(1000);
         }
@@ -52,7 +52,7 @@ public class RequestTokenHelper{
         return null;
     }
 
-    public static void clear(){
+    public static void clear() {
         tokenPool.clear();
     }
 
