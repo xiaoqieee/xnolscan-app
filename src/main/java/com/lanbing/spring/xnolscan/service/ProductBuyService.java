@@ -1,5 +1,7 @@
 package com.lanbing.spring.xnolscan.service;
 
+import com.lanbing.spring.xnolscan.constant.ConfigKey;
+import com.lanbing.spring.xnolscan.helper.BizConfigHelper;
 import com.lanbing.spring.xnolscan.helper.ProductCanBuyHelper;
 import com.lanbing.spring.xnolscan.helper.RequestTokenHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
@@ -85,9 +87,11 @@ public class ProductBuyService extends BaseService {
     }
 
     private static String[] parseResult(String resultPage) {
-        String lines[] = resultPage.split("\r\n");
-        String statusStr = lines[376];
-        String messageStr = lines[381];
+        int statusLine = Integer.valueOf(BizConfigHelper.get(ConfigKey.BUY_RESULT_STATUS_LINE, "375"));
+        int descLine = Integer.valueOf(BizConfigHelper.get(ConfigKey.BUY_RESULT_DESC_LINE, "380"));
+        String[] lines = resultPage.split("\r\n");
+        String statusStr = lines[statusLine - 1];
+        String messageStr = lines[descLine - 1];
         statusStr = StringUtils.trimAllWhitespace(statusStr);
         String status = statusStr.split("\"")[1];
         messageStr = StringUtils.trimAllWhitespace(messageStr);
