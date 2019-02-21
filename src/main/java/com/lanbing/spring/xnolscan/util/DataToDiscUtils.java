@@ -94,15 +94,17 @@ public class DataToDiscUtils {
     }
 
     public static Integer getMaxProductId() {
+        Integer maxProductId = 48089600;
         try {
             List<String> lines = getLines("/data/maxid.txt");
             if (lines != null && lines.size() > 0) {
-                String line = lines.get(lines.size() - 5);
-                return Integer.valueOf(line.split("\\[")[0]);
+                String line = lines.get(lines.size() - 2);
+                String idStr = line.split("\\[")[0];
+                maxProductId = null != idStr ? Integer.valueOf(idStr) : maxProductId;
             }
         } catch (Exception e) {
         }
-        return null;
+        return maxProductId;
     }
 
     public static void main(String[] args) {
