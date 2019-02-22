@@ -6,6 +6,7 @@ import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
 import com.lanbing.spring.xnolscan.model.Product;
 import com.lanbing.spring.xnolscan.thread.ThreadPoolManager;
 import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
+import com.lanbing.spring.xnolscan.util.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class XnolProductScanHelper extends BaseService {
         if (null == productIdList) {
             return;
         }
+        logger.info("productIdList:" + ListUtils.toString(productIdList));
         for (Integer productId : productIdList) {
             try {
                 if (ScanedProductIdHelper.add(productId)) {
