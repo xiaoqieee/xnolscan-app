@@ -34,7 +34,7 @@ public class RequestTokenHelper {
             } catch (Exception e) {
                 System.out.println("生产Token异常。异常信息：" + e);
             }
-            DateUtils.sleep(1000);
+            DateUtils.sleep(5000);
         }
     }
 
