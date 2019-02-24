@@ -1,5 +1,6 @@
 package com.lanbing.spring.xnolscan.service;
 
+import com.alibaba.fastjson.JSON;
 import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.helper.ScanedProductIdHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
@@ -9,6 +10,7 @@ import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 public class XnolProductScanHelper extends BaseService {
 
@@ -20,21 +22,30 @@ public class XnolProductScanHelper extends BaseService {
         if (null == productList) {
             return;
         }
+        logger.info("productList:" + JSON.toJSONString(productList));
         for (Product p : productList) {
-            logger.info(p.getProductId() + ":<<<<<:" + p);
-            productBuyService.checkBuy(DataToDiscUtils.TYPE_LIST, p);
+            try {
+                if (ScanedProductIdHelper.add(p.getProductId())) {
+                    logger.info(p.getProductId() + ":<<<<<:" + p);
+                    productBuyService.checkBuy(DataToDiscUtils.TYPE_LIST, p);
+                    ProductMaxIdHelper.setCurMaxProductId(p.getProductId());
+                }
+            } catch (Exception e) {
+                logger.error("循环处理产品ID列表异常", e);
+            }
         }
     }
 
     protected void doPageList2() throws Exception {
-        List<Integer> productIdList = XnolHttpRequestHelper.getProductIdList();
-        if (null == productIdList) {
+        List<Product> productList = XnolHttpRequestHelper.getProductList();
+        if (null == productList) {
             return;
         }
-        for (Integer productId : productIdList) {
+        logger.info("productList:" + JSON.toJSONString(productList));
+        for (Product product : productList) {
             try {
-                if (ScanedProductIdHelper.add(productId)) {
-                    doDetailAsync(productId);
+                if (ScanedProductIdHelper.add(product.getProductId())) {
+                    ProductMaxIdHelper.setCurMaxProductId(product.getProductId());
                 }
             } catch (Exception e) {
                 logger.error("循环处理产品ID列表异常", e);
@@ -46,7 +57,6 @@ public class XnolProductScanHelper extends BaseService {
         ThreadPoolManager.addTask(() -> {
             try {
                 doDetail(productId);
-                ProductMaxIdHelper.setCurMaxProductId(productId);
             } catch (Exception e) {
                 logger.error("异步处理单个产品ID异常", e);
             }

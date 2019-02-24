@@ -8,7 +8,9 @@ import org.apache.http.client.methods.HttpPost;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class XnolHttpRequestHelper extends BaseService {
 
@@ -42,15 +44,15 @@ public class XnolHttpRequestHelper extends BaseService {
         return HttpResponseParseHelper.parseListJson(data);
     }
 
-    public static List<Integer> getProductIdList() throws Exception {
+    public static Map<Integer, Product> getProductMap() throws Exception {
         List<Product> productList = getProductList();
-        List<Integer> productIds = new ArrayList<>();
+        Map<Integer, Product> productMap = new HashMap<>();
         if (null != productList && productList.size() > 0) {
             for (Product product : productList) {
-                productIds.add(product.getProductId());
+                productMap.put(product.getProductId(), product);
             }
         }
-        return productIds;
+        return productMap;
     }
 
 
