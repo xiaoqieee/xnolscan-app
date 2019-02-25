@@ -41,7 +41,7 @@ public class ProductMaxIdHelper {
             productId += step;
             while (true) {
                 try {
-                    Product p = XnolHttpRequestHelper.getProductById2(productId, false);
+                    Product p = XnolHttpRequestHelper.getProductById2(productId, true);
                     System.out.println(productId + ":>>>>>:" + p);
                     if (p == null) {
                         failTimes++;
@@ -59,25 +59,5 @@ public class ProductMaxIdHelper {
             step = step / 10;
         }
         return productId;
-    }
-
-    public static Integer intelligenceGetMaxId2() throws Exception {
-        int initId = 42629563;
-        int interval = 10000;
-        int step = 1;
-        int maxProductId = initId;
-        while (true) {
-            int nextProductId = maxProductId + interval * step++;
-            Product p = XnolHttpRequestHelper.getProductById2(nextProductId, false);
-            if (null == p) {
-                interval = interval / 2;
-                step = 1;
-            } else {
-                maxProductId = nextProductId;
-                if (interval < 50) {
-                    return p.getProductId();
-                }
-            }
-        }
     }
 }

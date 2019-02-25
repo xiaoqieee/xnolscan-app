@@ -17,6 +17,9 @@ public class XnolProductScanHelper extends BaseService {
     @Autowired
     private ProductBuyService productBuyService;
 
+
+    private ThreadLocal<Integer> detailCount = new ThreadLocal<>();
+
     protected void doPageList() throws Exception {
         List<Product> productList = XnolHttpRequestHelper.getProductList();
         if (null == productList) {
@@ -65,13 +68,26 @@ public class XnolProductScanHelper extends BaseService {
 
 
     protected boolean doDetail(Integer productId) throws Exception {
-        Product p = XnolHttpRequestHelper.getProductById2(productId, false);
+        Product p = getRandomProduct(productId);
         logger.info(productId + ":>>>>>:" + p);
         if (null == p) {
             return false;
         }
         productBuyService.checkBuy(DataToDiscUtils.TYPE_DETAIL, p);
         return true;
+    }
+
+    private Product getRandomProduct(Integer productId) throws Exception {
+        if (detailCount.get() == null) {
+            detailCount.set(0);
+        } else {
+            detailCount.set(detailCount.get() + 1);
+        }
+        if (detailCount.get() % 2 == 0) {
+            return XnolHttpRequestHelper.getProductById2(productId, true);
+        } else {
+            return XnolHttpRequestHelper.getProductById(productId);
+        }
     }
 
 
