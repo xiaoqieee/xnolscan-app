@@ -30,13 +30,13 @@ public class ScanStartService extends BaseService {
             RequestTokenHelper.producerAsync();
 
             // 设置当前初始ID
-//            ProductMaxIdHelper.init(baseProductId);
+            ProductMaxIdHelper.init(baseProductId);
 
 
             xnolListScanService.scanIdListAsync();
 
             // 详情页处理
-//            startDetail();
+            startDetail();
 
             return "Started by " + ProductMaxIdHelper.currentMaxProductId.get();
         } else {
