@@ -25,7 +25,7 @@ public class XnolProductScanHelper extends BaseService {
         if (null == productList) {
             return;
         }
-        logger.info("productList:" + JSON.toJSONString(productList));
+        logger.info("productList:" + productList.size());
         for (Product p : productList) {
             try {
                 if (ScanedProductIdHelper.add(p.getProductId())) {

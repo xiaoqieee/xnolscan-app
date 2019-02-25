@@ -18,7 +18,7 @@ public class ScanStartRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Integer baseProductId = getBaseProductId();
-        scanStartService.start(baseProductId);
+        scanStartService.start(49229704);
 
     }
 

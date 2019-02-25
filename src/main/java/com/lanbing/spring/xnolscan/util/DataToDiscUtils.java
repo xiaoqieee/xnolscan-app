@@ -94,7 +94,7 @@ public class DataToDiscUtils {
     }
 
     public static Integer getMaxProductId() {
-        Integer maxProductId = 48089600;
+        Integer maxProductId = 49229704;
         try {
             List<String> lines = getLines("/data/maxid.txt");
             if (lines != null && lines.size() > 0) {
