@@ -35,22 +35,22 @@ public class XnolProductScanHelper extends BaseService {
             }
         }
     }
-
-    protected void doPageList2() throws Exception {
-        List<Integer> productIdList = XnolHttpRequestHelper.getProductIdList();
-        if (null == productIdList) {
-            return;
-        }
-        for (Integer productId : productIdList) {
-            try {
-                if (ScanedProductIdHelper.add(productId)) {
-                    doDetailAsync(productId);
-                }
-            } catch (Exception e) {
-                logger.error("循环处理产品ID列表异常", e);
-            }
-        }
-    }
+//
+//    protected void doPageList2() throws Exception {
+//        List<Integer> productIdList = XnolHttpRequestHelper.getProductMap()
+//        if (null == productIdList) {
+//            return;
+//        }
+//        for (Integer productId : productIdList) {
+//            try {
+//                if (ScanedProductIdHelper.add(productId)) {
+//                    doDetailAsync(productId);
+//                }
+//            } catch (Exception e) {
+//                logger.error("循环处理产品ID列表异常", e);
+//            }
+//        }
+//    }
 
     protected void doDetailAsync(final Integer productId) {
         ThreadPoolManager.addTask(() -> {

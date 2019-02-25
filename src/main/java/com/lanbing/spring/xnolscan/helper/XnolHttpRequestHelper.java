@@ -43,17 +43,17 @@ public class XnolHttpRequestHelper extends BaseService {
         }
         return HttpResponseParseHelper.parseListJson(data);
     }
-
-    public static Map<Integer, Product> getProductMap() throws Exception {
-        List<Product> productList = getProductList();
-        Map<Integer, Product> productMap = new HashMap<>();
-        if (null != productList && productList.size() > 0) {
-            for (Product product : productList) {
-                productMap.put(product.getProductId(), product);
-            }
-        }
-        return productMap;
-    }
+//
+//    public static Map<Integer, Product> getProductMap() throws Exception {
+//        List<Product> productList = getProductList();
+//        Map<Integer, Product> productMap = new HashMap<>();
+//        if (null != productList && productList.size() > 0) {
+//            for (Product product : productList) {
+//                productMap.put(product.getProductId(), product);
+//            }
+//        }
+//        return productMap;
+//    }
 
 
     public static String detailPage(Integer productId) throws Exception {
