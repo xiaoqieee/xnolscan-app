@@ -64,7 +64,7 @@ public class ProductIdBO {
         if (hour >= 0 && hour <= 4) {
             return 100;
         }
-        if(custProductId < ProductMaxIdHelper.currentMaxProductId.get() - 2 * step){
+        if(custProductId < ProductMaxIdHelper.currentMaxProductId.get() - step - 1){
             return getId(custProductId,ProductMaxIdHelper.currentMaxProductId.get(),step);
         }
         return step;
