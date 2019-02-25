@@ -60,15 +60,15 @@ public class XnolHttpRequestHelper extends BaseService {
         // https://www.xiaoniu88.com/product/bid/detail/42991677        转让标详情页
         // https://www.xiaoniu88.com/product/common/42991677            散标详情页
         HttpGet httpGet = HttpRequestHelper.getHttpGet("http://www.xiaoniu88.com/product/bid/detail/" + productId);
-//        httpGet.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
-//        httpGet.getParams().setParameter("http.protocol.max-redirects", 110);
         String content = HttpRequestHandler.doOptimizRequest(httpGet);
+//        HttpPost httpPost = HttpRequestHelper.getHttpPost("http://www.xiaoniu88.com/product/detail/1/" + productId, null);
+//        String content = HttpRequestHandler.doOptimizRequest(httpPost);
         return content;
     }
 
     public static void main(String[] args) throws Exception {
         try {
-            String result = detailPage(46343001);
+            String result = detailPage(49223135);
         } catch (Exception e) {
             e.printStackTrace();
         }
