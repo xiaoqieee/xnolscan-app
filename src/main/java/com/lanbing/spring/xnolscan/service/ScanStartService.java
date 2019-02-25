@@ -53,7 +53,7 @@ public class ScanStartService extends BaseService {
 
         for (int interval = 0; interval < step; interval++) {
             for (int i = 0; i < threadCountPerProductId; i++) {
-                new Thread(new DetailScanTask(xnolDetailScanService, currentMaxId, interval, step), "Thread-detail-scan-" + interval + "-" + i).start();
+                new Thread(new DetailScanTask(xnolDetailScanService, currentMaxId, interval, step*2), "Thread-detail-scan-" + interval + "-" + i).start();
             }
         }
     }
