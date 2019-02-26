@@ -64,17 +64,19 @@ public class ProductIdBO {
         if (hour >= 0 && hour <= 4) {
             return 100;
         }
-        if (custProductId < ProductMaxIdHelper.currentMaxProductId.get() - step - 1) {
-            return getId(custProductId, ProductMaxIdHelper.currentMaxProductId.get(), step);
+        if (custProductId < ProductMaxIdHelper.currentMaxProductId.get() - step + 1) {
+            return getStep(custProductId, ProductMaxIdHelper.currentMaxProductId.get(), step);
         }
         return step;
     }
 
-    private int getId(int custProductId, int curMaxId, int stop) {
+    private int getStep(int custProductId, int curMaxId, int step) {
+        int result = step;
         int i = 1;
         while (custProductId < curMaxId) {
-            custProductId = custProductId + stop * i++;
+            result = step * i++;
+            custProductId = custProductId + result;
         }
-        return custProductId;
+        return result;
     }
 }
