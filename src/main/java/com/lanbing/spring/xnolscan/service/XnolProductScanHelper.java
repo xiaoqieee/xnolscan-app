@@ -84,7 +84,7 @@ public class XnolProductScanHelper extends BaseService {
             detailCount.set(detailCount.get() + 1);
         }
         if (detailCount.get() % 2 == 0) {
-            return XnolHttpRequestHelper.getProductById2(productId, true);
+            return XnolHttpRequestHelper.getProductById2(productId);
         } else {
             return XnolHttpRequestHelper.getProductById(productId);
         }

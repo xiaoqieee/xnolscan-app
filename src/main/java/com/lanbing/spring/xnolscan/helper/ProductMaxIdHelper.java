@@ -41,7 +41,7 @@ public class ProductMaxIdHelper {
             productId += step;
             while (true) {
                 try {
-                    Product p = XnolHttpRequestHelper.getProductById2(productId, true);
+                    Product p = XnolHttpRequestHelper.getProductById2(productId);
                     System.out.println(productId + ":>>>>>:" + p);
                     if (p == null) {
                         failTimes++;

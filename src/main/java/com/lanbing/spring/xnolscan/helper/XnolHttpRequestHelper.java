@@ -16,13 +16,12 @@ public class XnolHttpRequestHelper extends BaseService {
 
     public static Product getProductById(Integer productId) throws Exception {
         String url = "https://www.xiaoniu88.com/product/detail/5/" + productId;
-
         HttpPost httpPost = HttpRequestHelper.getHttpPost(url, null, HttpHeaderHelper.buildQueryPostHeader());
         String data = HttpRequestHandler.doOptimizRequest(httpPost);
         return HttpResponseParseHelper.parseDetailJson(data);
     }
 
-    public static Product getProductById2(Integer productId, boolean login) throws Exception {
+    public static Product getProductById2(Integer productId) throws Exception {
         String url = "https://www.xiaoniu88.com/product/common/" + productId + ".json?_=" + System.currentTimeMillis();
         HttpGet httpGet = HttpRequestHelper.getHttpGet(url);
         String data = HttpRequestHandler.doOptimizRequest(httpGet);
@@ -64,7 +63,7 @@ public class XnolHttpRequestHelper extends BaseService {
 
     public static void main(String[] args) throws Exception {
         try {
-            System.out.println(getProductById2(50074919, true));
+            System.out.println(getProductById(50074919));
         } catch (Exception e) {
             e.printStackTrace();
         }
