@@ -27,7 +27,7 @@ public class HttpRequestHelper {
     }
 
 
-    public static HttpPost getHttpPost(String url, List<NameValuePair> params) throws Exception {
+    public static HttpPost getHttpPost(String url, List<NameValuePair> params, Header[] headers) throws Exception {
         HttpPost httpPost = new HttpPost(url);
 
         if (null != params) {
@@ -36,9 +36,8 @@ public class HttpRequestHelper {
             httpPost.setEntity(entityParam);
         }
         // 设置 header
-        Header headerss[] = HttpHeaderHelper.buildPostHeader();
-        if (headerss != null && headerss.length > 0) {
-            httpPost.setHeaders(headerss);
+        if (headers != null && headers.length > 0) {
+            httpPost.setHeaders(headers);
         }
         return httpPost;
     }

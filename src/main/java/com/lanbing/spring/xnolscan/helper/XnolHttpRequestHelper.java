@@ -16,19 +16,15 @@ public class XnolHttpRequestHelper extends BaseService {
 
     public static Product getProductById(Integer productId) throws Exception {
         String url = "https://www.xiaoniu88.com/product/detail/5/" + productId;
-        HttpPost httpPost = HttpRequestHelper.getHttpPost(url, null);
+
+        HttpPost httpPost = HttpRequestHelper.getHttpPost(url, null, HttpHeaderHelper.buildQueryPostHeader());
         String data = HttpRequestHandler.doOptimizRequest(httpPost);
         return HttpResponseParseHelper.parseDetailJson(data);
     }
 
     public static Product getProductById2(Integer productId, boolean login) throws Exception {
         String url = "https://www.xiaoniu88.com/product/common/" + productId + ".json?_=" + System.currentTimeMillis();
-        HttpGet httpGet;
-        if (login) {
-            httpGet = HttpRequestHelper.getHttpGet(url);
-        } else {
-            httpGet = HttpRequestHelper.getDefaultHttpGet(url);
-        }
+        HttpGet httpGet = HttpRequestHelper.getHttpGet(url);
         String data = HttpRequestHandler.doOptimizRequest(httpGet);
         return HttpResponseParseHelper.parseDetailJson2(data);
     }
@@ -36,7 +32,7 @@ public class XnolHttpRequestHelper extends BaseService {
 
     public static List<Product> getProductList() throws Exception {
         String url = "https://www.xiaoniu88.com/product/list?" + System.currentTimeMillis();
-        HttpPost httpPost = HttpRequestHelper.getHttpPost(url, HttpParamHelper.buildListParam());
+        HttpPost httpPost = HttpRequestHelper.getHttpPost(url, HttpParamHelper.buildListParam(), HttpHeaderHelper.buildQueryPostHeader());
         String data = HttpRequestHandler.doOptimizRequest(httpPost);
         if (null == data) {
             return null;
@@ -68,7 +64,7 @@ public class XnolHttpRequestHelper extends BaseService {
 
     public static void main(String[] args) throws Exception {
         try {
-            String result = detailPage(49223135);
+            System.out.println(getProductById2(50074919, true));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,7 +74,7 @@ public class XnolHttpRequestHelper extends BaseService {
     public static String submitBuy(Integer productId, BigDecimal amount, String tokenName, String tokenValue) throws Exception {
         String url = "https://www.xiaoniu88.com/product/trade/new/buy?productName=%E5%AE%89%E9%80%B8%E4%BF%A1Z20190127-241261&productTerm=120&productType=5";
         List<NameValuePair> params = HttpParamHelper.buildBuyParam(productId, amount, tokenName, tokenValue);
-        HttpPost httpPost = HttpRequestHelper.getHttpPost(url, params);
+        HttpPost httpPost = HttpRequestHelper.getHttpPost(url, params, HttpHeaderHelper.buildBuyPostHeader());
         String result = HttpRequestHandler.doOptimizRequest(httpPost);
         return result;
     }
