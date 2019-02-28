@@ -33,7 +33,7 @@ public class ScanStartService extends BaseService {
             ProductMaxIdHelper.init(baseProductId);
 
 
-            xnolListScanService.scanIdListAsync();
+//            xnolListScanService.scanIdListAsync();
 
             // 详情页处理
             startDetail();
