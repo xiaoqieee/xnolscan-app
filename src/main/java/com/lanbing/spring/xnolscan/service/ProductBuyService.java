@@ -7,6 +7,7 @@ import com.lanbing.spring.xnolscan.helper.RequestTokenHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
 import com.lanbing.spring.xnolscan.model.Product;
 import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
+import com.lanbing.spring.xnolscan.util.ListUtils;
 import com.lanbing.spring.xnolscan.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -71,6 +74,7 @@ public class ProductBuyService extends BaseService {
 
     private void doBuyResult(Integer productId, String resultPage) {
         String[] result = ProductBuyService.getResult(resultPage);
+        logger.info("获取到购买结果：productId:{}, result:{}", productId, Arrays.toString(result));
         String loginUser = loginUserService.getLoginUser();
         if (null == result) {
             DataToDiscUtils.saveByResult(loginUser, productId, new String[]{"-1", "结果异常"});

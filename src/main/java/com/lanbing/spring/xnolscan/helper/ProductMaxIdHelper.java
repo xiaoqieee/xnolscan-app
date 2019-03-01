@@ -9,10 +9,10 @@ public class ProductMaxIdHelper {
 
     private static Object lock = new Object();
 
-    public static AtomicInteger currentMaxProductId = new AtomicInteger(50355032);
+    public static AtomicInteger currentMaxProductId = new AtomicInteger(50356986);
 
     public static void init(int baseProductId) {
-        int maxProductId = 50355032;
+        int maxProductId = 50356986;
         currentMaxProductId = new AtomicInteger(maxProductId);
     }
 
