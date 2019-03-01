@@ -9,10 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ScanStartService extends BaseService {
 
-
-    @Autowired
-    private LoginUserService loginUserService;
-
     @Autowired
     private XnolListScanService xnolListScanService;
 

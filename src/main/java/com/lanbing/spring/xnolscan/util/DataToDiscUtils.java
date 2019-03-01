@@ -16,10 +16,10 @@ public class DataToDiscUtils {
     public final static int TYPE_LIST = 1;
     public final static int TYPE_DETAIL = 2;
 
-    public static void saveToRecord(String loginUser, Integer type, Product t) {
+    public static void saveToRecord(Integer type, Product t) {
         ThreadPoolManager.addTask(() -> {
             try {
-                DataToDiscUtils.appendToFile("/data/" + loginUser + "/record.txt", type + ":" + t.toString());
+                DataToDiscUtils.appendToFile("/data/record.txt", type + ":" + t.toString());
             } catch (Exception e) {
             }
         });
@@ -36,10 +36,10 @@ public class DataToDiscUtils {
     }
 
 
-    public static void saveByResult(String loginUser, Integer productId, String[] result) {
+    public static void saveByResult(Integer productId, String[] result) {
         ThreadPoolManager.addTask(() -> {
             try {
-                DataToDiscUtils.appendToFile("/data/" + loginUser + "/result.txt", productId + "[" + result[0] + "][" + result[1] + "][" + DateUtils.getTimeString() + "]");
+                DataToDiscUtils.appendToFile("/data/result.txt", productId + "[" + result[0] + "][" + result[1] + "][" + DateUtils.getTimeString() + "]");
             } catch (Exception e) {
             }
         });

@@ -2,7 +2,6 @@ package com.lanbing.spring.xnolscan.controller;
 
 import com.lanbing.spring.xnolscan.helper.*;
 import com.lanbing.spring.xnolscan.model.Product;
-import com.lanbing.spring.xnolscan.service.LoginUserService;
 import com.lanbing.spring.xnolscan.service.ProductBuyService;
 import com.lanbing.spring.xnolscan.service.ScanStartService;
 import com.lanbing.spring.xnolscan.util.DateUtils;
