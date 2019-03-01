@@ -91,8 +91,8 @@ public class ProductBuyService extends BaseService {
     }
 
     private static String[] parseResult(String resultPage) {
-        int statusLine = Integer.valueOf(BizConfigHelper.get(ConfigKey.BUY_RESULT_STATUS_LINE, "375"));
-        int descLine = Integer.valueOf(BizConfigHelper.get(ConfigKey.BUY_RESULT_DESC_LINE, "380"));
+        int statusLine = Integer.valueOf(BizConfigHelper.get(ConfigKey.BUY_RESULT_STATUS_LINE, "377"));
+        int descLine = Integer.valueOf(BizConfigHelper.get(ConfigKey.BUY_RESULT_DESC_LINE, "382"));
         String[] lines = resultPage.split("\r\n");
         String statusStr = lines[statusLine - 1];
         String messageStr = lines[descLine - 1];
