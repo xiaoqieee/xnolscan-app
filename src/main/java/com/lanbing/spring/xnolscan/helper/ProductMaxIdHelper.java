@@ -9,19 +9,19 @@ public class ProductMaxIdHelper {
 
     private static Object lock = new Object();
 
-    public static AtomicInteger currentMaxProductId = new AtomicInteger(50346523);
+    public static AtomicInteger currentMaxProductId = new AtomicInteger(50347714);
 
     public static void init(int baseProductId) {
-        int maxProductId = 50346523;
+        int maxProductId = 50347714;
         currentMaxProductId = new AtomicInteger(maxProductId);
     }
 
 
     public static boolean setCurMaxProductId(Integer targetProductId) {
         if (targetProductId > currentMaxProductId.get()) {
-            currentMaxProductId.set(targetProductId);
             synchronized (lock) {
                 if (targetProductId > currentMaxProductId.get()) {
+                    currentMaxProductId.set(targetProductId);
                     DataToDiscUtils.saveToMaxId(targetProductId);
                     return true;
                 }

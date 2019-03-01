@@ -7,10 +7,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class XnolHttpRequestHelper extends BaseService {
 
@@ -54,7 +51,7 @@ public class XnolHttpRequestHelper extends BaseService {
     public static String detailPage(Integer productId) throws Exception {
         // https://www.xiaoniu88.com/product/bid/detail/42991677        转让标详情页
         // https://www.xiaoniu88.com/product/common/42991677            散标详情页
-        HttpGet httpGet = HttpRequestHelper.getHttpGet("http://www.xiaoniu88.com/product/bid/detail/" + productId);
+        HttpGet httpGet = HttpRequestHelper.getHttpGet("http://www.xiaoniu88.com/product/bid/detail/" + productId, HttpHeaderHelper.buildBuyPostHeader());
         String content = HttpRequestHandler.doOptimizRequest(httpGet);
 //        HttpPost httpPost = HttpRequestHelper.getHttpPost("http://www.xiaoniu88.com/product/detail/1/" + productId, null);
 //        String content = HttpRequestHandler.doOptimizRequest(httpPost);

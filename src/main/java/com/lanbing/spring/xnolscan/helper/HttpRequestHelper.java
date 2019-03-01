@@ -42,5 +42,14 @@ public class HttpRequestHelper {
         return httpPost;
     }
 
+    public static HttpGet getHttpGet(String url, Header[] headers) throws Exception {
+        HttpGet httpGet = new HttpGet(url);
+        // 设置 header
+        if (headers != null && headers.length > 0) {
+            httpGet.setHeaders(headers);
+        }
+        return httpGet;
+    }
+
 
 }
