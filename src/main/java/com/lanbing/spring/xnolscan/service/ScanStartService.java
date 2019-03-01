@@ -47,7 +47,7 @@ public class ScanStartService extends BaseService {
 
     private void startDetail() {
         // 根据累加ID搜索
-        final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get() - 1;
+        final int currentMaxId = ProductMaxIdHelper.currentMaxProductId.get();
         int threadCountPerProductId = Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_THREAD_COUNT, "2"));
         int step = Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_SCAN_STEP, "20"));
 
