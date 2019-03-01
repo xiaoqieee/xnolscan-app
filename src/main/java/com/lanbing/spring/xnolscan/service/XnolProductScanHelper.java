@@ -26,10 +26,9 @@ public class XnolProductScanHelper extends BaseService {
         logger.info("productList:" + productList.size());
         for (Product p : productList) {
             try {
-                if (ScanedProductIdHelper.add(p.getProductId())) {
+                if (ScanedProductIdHelper.add(p)) {
                     logger.info(p.getProductId() + ":<<<<<:" + p);
                     productBuyService.checkBuy(DataToDiscUtils.TYPE_LIST, p);
-                    ProductMaxIdHelper.setCurMaxProductId(p.getProductId());
                 }
             } catch (Exception e) {
                 logger.error("循环处理产品ID列表异常", e);
@@ -71,7 +70,7 @@ public class XnolProductScanHelper extends BaseService {
             return false;
         }
         productBuyService.checkBuy(DataToDiscUtils.TYPE_DETAIL, p);
-        ProductMaxIdHelper.setCurMaxProductId(productId);
+        ScanedProductIdHelper.add(p);
         return true;
     }
 

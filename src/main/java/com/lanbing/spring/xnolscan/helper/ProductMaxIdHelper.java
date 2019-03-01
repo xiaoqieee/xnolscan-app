@@ -22,7 +22,6 @@ public class ProductMaxIdHelper {
             synchronized (lock) {
                 if (targetProductId > currentMaxProductId.get()) {
                     currentMaxProductId.set(targetProductId);
-                    DataToDiscUtils.saveToMaxId(targetProductId);
                     return true;
                 }
             }

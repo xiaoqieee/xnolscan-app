@@ -37,9 +37,6 @@ public class XnolDetailScanService extends XnolProductScanHelper {
             }
             if (!ScanedProductIdHelper.isScaned(productId)) {
                 hasTheProduct = doDetail(productId);
-                if (hasTheProduct) {
-                    ScanedProductIdHelper.add(productId);
-                }
                 DateUtils.sleep(Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_LOOP_INTERVAL, "500")));
             }
         }

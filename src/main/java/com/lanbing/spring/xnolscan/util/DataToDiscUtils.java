@@ -25,10 +25,10 @@ public class DataToDiscUtils {
         });
     }
 
-    public static void saveToMaxId(Integer maxProductId) {
+    public static void saveToMaxId(Product p) {
         ThreadPoolManager.addTask(() -> {
             try {
-                DataToDiscUtils.appendToFile("/data/maxid.txt", maxProductId.toString() + "[" + DateUtils.getTimeString() + "]");
+                DataToDiscUtils.appendToFile("/data/maxid.txt", p.getProductId().toString() + "[" + DateUtils.getTimeString() + "][" + p.toString() + "]");
             } catch (Exception e) {
             }
         });
