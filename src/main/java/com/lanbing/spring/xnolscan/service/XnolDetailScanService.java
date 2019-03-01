@@ -23,7 +23,7 @@ public class XnolDetailScanService extends XnolProductScanHelper {
                 doDetailLoop(productId);
                 DateUtils.sleep(Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_LOOP_INTERVAL, "500")));
             } catch (Exception e) {
-                logger.error("循环处理详情异常", e);
+                logger.error("循环处理详情异常", e.getMessage());
             }
         }
     }
