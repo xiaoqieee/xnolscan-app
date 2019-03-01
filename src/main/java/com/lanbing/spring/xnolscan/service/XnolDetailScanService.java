@@ -20,10 +20,7 @@ public class XnolDetailScanService extends XnolProductScanHelper {
             }
             try {
                 Integer productId = productIdBO.getNextProductId();
-                boolean hasProduct = doDetailLoop(productId);
-                if (hasProduct) {
-                    ProductMaxIdHelper.setCurMaxProductId(productId);
-                }
+                doDetailLoop(productId);
                 DateUtils.sleep(Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_LOOP_INTERVAL, "500")));
             } catch (Exception e) {
                 logger.error("循环处理详情异常", e);

@@ -12,16 +12,16 @@ public class ProductMaxIdHelper {
     public static AtomicInteger currentMaxProductId = new AtomicInteger(49483302);
 
     public static void init(int baseProductId) {
-        int maxProductId = intelligenceGetMaxId(baseProductId);
+        int maxProductId = 50344408;
         currentMaxProductId = new AtomicInteger(maxProductId);
     }
 
 
     public static boolean setCurMaxProductId(Integer targetProductId) {
         if (targetProductId > currentMaxProductId.get()) {
+            currentMaxProductId.set(targetProductId);
             synchronized (lock) {
                 if (targetProductId > currentMaxProductId.get()) {
-                    currentMaxProductId.set(targetProductId);
                     DataToDiscUtils.saveToMaxId(targetProductId);
                     return true;
                 }

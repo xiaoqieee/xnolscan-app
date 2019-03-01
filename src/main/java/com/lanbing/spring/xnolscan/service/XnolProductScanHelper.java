@@ -1,6 +1,5 @@
 package com.lanbing.spring.xnolscan.service;
 
-import com.alibaba.fastjson.JSON;
 import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.helper.ScanedProductIdHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
@@ -10,7 +9,6 @@ import com.lanbing.spring.xnolscan.util.DataToDiscUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Map;
 
 public class XnolProductScanHelper extends BaseService {
 
@@ -69,11 +67,12 @@ public class XnolProductScanHelper extends BaseService {
 
     protected boolean doDetail(Integer productId) throws Exception {
         Product p = getRandomProduct(productId);
-        logger.info(productId + ":>>>>>:" + p);
+        logger.info(productId + "[" + ProductMaxIdHelper.currentMaxProductId.get() + "]:>>>>>:" + p);
         if (null == p) {
             return false;
         }
         productBuyService.checkBuy(DataToDiscUtils.TYPE_DETAIL, p);
+        ProductMaxIdHelper.setCurMaxProductId(productId);
         return true;
     }
 
