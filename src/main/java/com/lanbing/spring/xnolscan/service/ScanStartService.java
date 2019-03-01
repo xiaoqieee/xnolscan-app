@@ -23,14 +23,10 @@ public class ScanStartService extends BaseService {
 
         if (StatusHelper.canStart()) {
 
-            // 刷新cookie
-            HttpHeaderHelper.reSetCookie(loginUserService.getLoginUser());
+            AppDataLoadHelper.loadData(baseProductId);
 
             // 获取token
             RequestTokenHelper.producerAsync();
-
-            // 设置当前初始ID
-            ProductMaxIdHelper.init(baseProductId);
 
 
 //            xnolListScanService.scanIdListAsync();

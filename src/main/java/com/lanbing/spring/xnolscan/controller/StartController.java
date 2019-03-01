@@ -26,12 +26,6 @@ public class StartController {
     @Autowired
     private ProductBuyService productBuyService;
 
-    @Autowired
-    private LoginUserService loginUserService;
-
-    private final Logger logger = LoggerFactory.getLogger(StartController.class);
-
-
     @RequestMapping(path = {"/start/{baseProductId}"})
     public String start(@PathVariable("baseProductId") Integer baseProductId) {
 
@@ -66,29 +60,10 @@ public class StartController {
         }
     }
 
-    @RequestMapping(path = {"/reSetCookie"})
-    public String reSetCookie() {
-        try {
-            // 刷新cookie
-            HttpHeaderHelper.reSetCookie(loginUserService.getLoginUser());
-            return "处理成功";
-        } catch (Exception e) {
-            return "处理异常";
-        }
-    }
 
-    @RequestMapping(path = {"/testLog"})
-    public String testLog() {
-        int i = 1;
-        while (true) {
-            DateUtils.sleep(1000);
-            logger.info("测试日志》》》" + i++);
-        }
-    }
-
-    @RequestMapping(path = {"/loadConfig"})
+    @RequestMapping(path = {"/loadData"})
     public String loadConfig() {
-        BizConfigHelper.load();
+        AppDataLoadHelper.loadData(0);
         return "处理成功";
     }
 

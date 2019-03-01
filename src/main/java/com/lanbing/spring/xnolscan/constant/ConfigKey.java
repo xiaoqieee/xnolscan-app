@@ -17,4 +17,6 @@ public interface ConfigKey {
     String BUY_RESULT_STATUS_LINE = "buy.result.result.line";
 
     String BUY_RESULT_DESC_LINE = "buy.result.desc.line";
+
+    String BUY_USER_USERNAME = "buy.user.username";
 }

@@ -7,7 +7,9 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataToDiscUtils {
 
@@ -91,6 +93,25 @@ public class DataToDiscUtils {
     private static List<String> getLines(String filePath) throws Exception {
         List<String> dataArr = FileUtils.readLines(new File(filePath), "UTF-8");
         return dataArr;
+    }
+
+    public static Map<String, String> getCookieMap() {
+        try {
+            Map<String, String> map = getDataMap("/data/cookie.txt", "::");
+            return map;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    private static Map<String, String> getDataMap(String filePath, String sep) throws Exception {
+        List<String> dataArr = FileUtils.readLines(new File(filePath), "UTF-8");
+        Map<String, String> map = new HashMap<>();
+        for (String line : dataArr) {
+            map.put(line.split("::")[0], line.split("::")[1]);
+        }
+        return map;
     }
 
     public static Integer getMaxProductId() {
