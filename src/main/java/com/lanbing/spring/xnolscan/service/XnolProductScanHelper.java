@@ -57,7 +57,6 @@ public class XnolProductScanHelper extends BaseService {
         ThreadPoolManager.addTask(() -> {
             try {
                 doDetail(productId);
-                ProductMaxIdHelper.setCurMaxProductId(productId);
             } catch (Exception e) {
                 logger.error("异步处理单个产品ID异常", e);
             }

@@ -20,7 +20,7 @@ public class XnolDetailScanService extends XnolProductScanHelper {
             }
             try {
                 Integer productId = productIdBO.getNextProductId();
-                doDetailLoop(productId);
+                doDetailLoop(productId, productIdBO.getStep());
                 DateUtils.sleep(Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_LOOP_INTERVAL, "500")));
             } catch (Exception e) {
                 logger.error("循环处理详情异常", e.getMessage());
@@ -29,12 +29,11 @@ public class XnolDetailScanService extends XnolProductScanHelper {
     }
 
 
-    public boolean doDetailLoop(Integer productId) {
+    public boolean doDetailLoop(Integer productId, int step) {
         boolean hasTheProduct = false;
-        long currentProductIdStart = System.currentTimeMillis();
         while (!hasTheProduct) {
-            if (breakRetern(currentProductIdStart)) {
-                return false;
+            if (productId < ProductMaxIdHelper.currentMaxProductId.get() - step) {
+                return true;
             }
             hasTheProduct = doDetail(productId);
             DateUtils.sleep(Integer.valueOf(BizConfigHelper.get(ConfigKey.DETAIL_LOOP_INTERVAL, "500")));
