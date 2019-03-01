@@ -65,7 +65,7 @@ public class XnolProductScanHelper extends BaseService {
     }
 
 
-    protected boolean doDetail(Integer productId) throws Exception {
+    protected boolean doDetail(Integer productId) {
         Product p = getRandomProduct(productId);
         logger.info(productId + "[" + ProductMaxIdHelper.currentMaxProductId.get() + "]:>>>>>:" + p);
         if (null == p) {
@@ -76,16 +76,21 @@ public class XnolProductScanHelper extends BaseService {
         return true;
     }
 
-    private Product getRandomProduct(Integer productId) throws Exception {
+    private Product getRandomProduct(Integer productId) {
         if (detailCount.get() == null) {
             detailCount.set(0);
         } else {
             detailCount.set(detailCount.get() + 1);
         }
-        if (detailCount.get() % 2 == 0) {
-            return XnolHttpRequestHelper.getProductById2(productId);
-        } else {
-            return XnolHttpRequestHelper.getProductById(productId);
+        try {
+            if (detailCount.get() % 2 == 0) {
+                return XnolHttpRequestHelper.getProductById2(productId);
+            } else {
+                return XnolHttpRequestHelper.getProductById(productId);
+            }
+        } catch (Exception e) {
+            logger.error("获取产品数据异常。", e);
+            return null;
         }
     }
 

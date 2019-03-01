@@ -72,9 +72,10 @@ public class ProductIdBO {
 
     private int getStep(int custProductId, int curMaxId, int step) {
         int result = 0;
-        while (custProductId < curMaxId) {
+        int temp = custProductId;
+        while (temp < curMaxId) {
             result += step;
-            custProductId = custProductId + result;
+            temp = temp + result;
         }
         return result;
     }

@@ -29,7 +29,7 @@ public class XnolDetailScanService extends XnolProductScanHelper {
     }
 
 
-    public boolean doDetailLoop(Integer productId) throws Exception {
+    public boolean doDetailLoop(Integer productId) {
         boolean hasTheProduct = false;
         long currentProductIdStart = System.currentTimeMillis();
         while (!hasTheProduct) {
