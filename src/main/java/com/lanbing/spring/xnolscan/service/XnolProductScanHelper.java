@@ -87,7 +87,7 @@ public class XnolProductScanHelper extends BaseService {
                 return XnolHttpRequestHelper.getProductById(productId);
             }
         } catch (Exception e) {
-            logger.error("获取产品数据异常。", e.getMessage());
+            logger.error("获取产品数据异常。{}", e.getCause().toString());
             return null;
         }
     }
