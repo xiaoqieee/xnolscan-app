@@ -14,6 +14,10 @@ public class ProductCanBuyHelper {
             return false;
         }
 
+        if (t.getProductTerm() < 20 && t.getRatio() > 0.02) {
+            return true;
+        }
+
         if (t.getProductTerm() < 40 && t.getRatio() > 0.03) {
             return true;
         }
