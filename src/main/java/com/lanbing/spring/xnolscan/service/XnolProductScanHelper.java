@@ -1,5 +1,7 @@
 package com.lanbing.spring.xnolscan.service;
 
+import com.lanbing.spring.xnolscan.constant.ConfigKey;
+import com.lanbing.spring.xnolscan.helper.BizConfigHelper;
 import com.lanbing.spring.xnolscan.helper.ProductMaxIdHelper;
 import com.lanbing.spring.xnolscan.helper.ScanedProductIdHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
@@ -75,22 +77,41 @@ public class XnolProductScanHelper extends BaseService {
     }
 
     private Product getRandomProduct(Integer productId) {
-        if (detailCount.get() == null) {
-            detailCount.set(0);
+        String queryType = BizConfigHelper.get(ConfigKey.DETAIL_QUERY_TYPE, "common,transfer");
+        if ("common".equals(queryType)) {
+            return queryByCommon(productId);
+        } else if ("transfer".equals(queryType)) {
+            return queryByTransfer(productId);
         } else {
-            detailCount.set(detailCount.get() + 1);
-        }
-        try {
-            if (detailCount.get() % 2 == 0) {
-                return XnolHttpRequestHelper.getProductById2(productId);
+            if (detailCount.get() == null) {
+                detailCount.set(0);
             } else {
-                return XnolHttpRequestHelper.getProductById(productId);
+                detailCount.set(detailCount.get() + 1);
             }
+            if (detailCount.get() % 2 == 0) {
+                return queryByCommon(productId);
+            } else {
+                return queryByTransfer(productId);
+            }
+        }
+    }
+
+    private Product queryByCommon(Integer productId) {
+        try {
+            return XnolHttpRequestHelper.getProductById2(productId);
         } catch (Exception e) {
-            logger.error("获取产品数据异常。{}", e.getCause().toString());
+            logger.error("获取产品数据异常2。{}", e.getCause().toString());
             return null;
         }
     }
 
+    private Product queryByTransfer(Integer productId) {
+        try {
+            return XnolHttpRequestHelper.getProductById(productId);
+        } catch (Exception e) {
+            logger.error("获取产品数据异常1。{}", e.getCause().toString());
+            return null;
+        }
+    }
 
 }

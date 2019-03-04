@@ -12,6 +12,8 @@ public interface ConfigKey {
 
     String DETAIL_SCAN_STEP = "detail.scan.step";
 
+    String DETAIL_QUERY_TYPE = "detail.query.type";
+
     String BASE_MAX_PRODUCTID = "base.max.productid";
 
     String BUY_RESULT_STATUS_LINE = "buy.result.result.line";
@@ -19,4 +21,5 @@ public interface ConfigKey {
     String BUY_RESULT_DESC_LINE = "buy.result.desc.line";
 
     String BUY_USER_USERNAME = "buy.user.username";
+
 }
