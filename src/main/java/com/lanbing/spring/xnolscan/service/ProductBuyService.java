@@ -1,7 +1,5 @@
 package com.lanbing.spring.xnolscan.service;
 
-import com.lanbing.spring.xnolscan.constant.ConfigKey;
-import com.lanbing.spring.xnolscan.helper.BizConfigHelper;
 import com.lanbing.spring.xnolscan.helper.ProductCanBuyHelper;
 import com.lanbing.spring.xnolscan.helper.RequestTokenHelper;
 import com.lanbing.spring.xnolscan.helper.XnolHttpRequestHelper;
