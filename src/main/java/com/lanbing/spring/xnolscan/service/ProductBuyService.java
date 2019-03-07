@@ -84,16 +84,23 @@ public class ProductBuyService extends BaseService {
     }
 
     private static String[] parseResult(String resultPage) {
-        int statusLine = Integer.valueOf(BizConfigHelper.get(ConfigKey.BUY_RESULT_STATUS_LINE, "375"));
-        int descLine = Integer.valueOf(BizConfigHelper.get(ConfigKey.BUY_RESULT_DESC_LINE, "380"));
         String[] lines = resultPage.split("\r\n");
-        String statusStr = lines[statusLine - 1];
-        String messageStr = lines[descLine - 1];
+        String statusStr = getStrLine(lines, "status:");
+        String messageStr = getStrLine(lines, "errorDetails:");
         statusStr = StringUtils.trimAllWhitespace(statusStr);
         String status = statusStr.split("\"")[1];
         messageStr = StringUtils.trimAllWhitespace(messageStr);
         String message = messageStr.split("\"")[1];
         return new String[]{status, message};
+    }
+
+    private static String getStrLine(String[] lines, String target) {
+        for (String line : lines) {
+            if (line != null && line.length() > 0 && line.indexOf(target) > -1) {
+                return line;
+            }
+        }
+        return null;
     }
 
     private static boolean isValidResult(String resultPage) {
